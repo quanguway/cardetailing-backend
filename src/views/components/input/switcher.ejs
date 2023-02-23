@@ -1,0 +1,4 @@
+<div class="form-group">
+  <label class="text-capitalize"><%= label ?? '' %></label><br>
+	<input class="form-control" type="checkbox" <%= value ? 'checked' : '' %>  data-toggle="toggle" data-on="<%= label_on ?? 'Có' %>" data-off="<%= label_off ?? 'Không' %>">
+</div>

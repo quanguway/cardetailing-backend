@@ -1,0 +1,20 @@
+<form action="">
+	<% columns.forEach((column) => {
+
+		let params = { 
+			label: column.label, 
+			label_on: column.label_on, 
+			label_off: column.label_off, 
+			value: element[column.column_name],
+		} %>
+		<%switch (column.mode) {
+			case 'switcher': %>
+				<%- include('input/switcher', { ...params })%>
+		<%break;
+			case 'text': 
+			default: %>
+				<%- include('input/text', { ...params }) %>
+			  <% break; } %>
+	<%}) %>
+	<input type="submit"class="btn btn-primary" value="Save">
+</form>
