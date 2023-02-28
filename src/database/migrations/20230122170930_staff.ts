@@ -10,12 +10,12 @@ export async function up(knex: Knex): Promise<void> {
     table.boolean('gender').nullable();
     table.text('note').nullable();
     table.string('avatar');
-    table.uuid('address_id').references('id').inTable('addresses');
+    table.uuid('address_id');
     table.uuid('role_id').references('id').inTable('roles');
     table.timestamp('date_created');
     table.timestamp('date_updated');
-  });
-}
+  }); 
+} 
 
 
 export async function down(knex: Knex): Promise<void> {

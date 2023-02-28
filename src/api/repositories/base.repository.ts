@@ -58,7 +58,10 @@ export abstract class BaseRepository<T> implements Reader<T>, Writer<T> {
    * @param  {string  | Partial<T>}  id [description]
    * @return {Promise<T>}   [description]
    */
-  findById(id: string | Partial<T>): Promise<T> {
+  findById(id: string | Partial<T> | undefined): Promise<T> {
+      if (!id) {
+        return this.queryBuilder.where("").first().select();;
+      }
       return typeof id === 'string' ?
        this.queryBuilder.where({id: id}).first().select() :
        this.queryBuilder.where(id).first().select();
@@ -66,7 +69,6 @@ export abstract class BaseRepository<T> implements Reader<T>, Writer<T> {
 
   async create(item: Omit<T, 'id'>): Promise<T> {
     const output = await this.queryBuilder.insert<T>(item)
-    console.log(output);
     
     return output as Promise<T>
   }

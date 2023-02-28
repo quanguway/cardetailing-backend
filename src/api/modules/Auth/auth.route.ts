@@ -36,7 +36,6 @@ routeAuth.post('/login', async (req: Request, res: Response, next: NextFunction)
 	if (account && password) {
 		if( await bcrypt.compare(password, account.password ?? '')) {
 			const response = account;
-			console.log(await permissionService.getPermissionOfRole(response.role_id));
 			
 			const authDTO = new RegisterAuthDTO(response ,await permissionService.getPermissionOfRole(response.role_id));
 			

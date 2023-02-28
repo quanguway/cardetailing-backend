@@ -5,10 +5,10 @@ export async function up(knex: Knex): Promise<void> {
     table.uuid('id').primary().defaultTo(knex.raw('(UUID())'));
     table.boolean('status').notNullable().defaultTo(false);
     table.text('note').nullable();
-    table.uuid('booking_id').references('id').inTable('booking');
-    table.uuid('product_id').references('id').inTable('products');
-    table.uuid('unit_exchange_id').references('id').inTable('unit_exchanges');
-    table.uuid('price_line_id').references('id').inTable('price_lines');
+    table.uuid('booking_id').references('id').inTable('booking').onUpdate('CASCADE').onDelete('CASCADE');;
+    table.uuid('product_id').references('id').inTable('products').onUpdate('CASCADE').onDelete('CASCADE');;
+    table.uuid('unit_exchange_id').references('id').inTable('unit_exchanges').onUpdate('CASCADE').onDelete('CASCADE');;
+    table.uuid('price_line_id').references('id').inTable('price_lines').onUpdate('CASCADE').onDelete('CASCADE');;
 
     table.string('title').notNullable();
     table.text('description').nullable();

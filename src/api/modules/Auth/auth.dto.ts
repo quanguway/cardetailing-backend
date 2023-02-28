@@ -1,7 +1,7 @@
 import { Permission } from "../Permission/permission";
 
 export class RegisterAuthDTO{
-    id: string;
+  id: string;
 	user_name: string;
 	access_type: string[];
   

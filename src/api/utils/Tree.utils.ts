@@ -30,6 +30,12 @@ export class Tree {
         return model.children
     }
 
+    isExist(id: string) {
+        const response = this.getArrayJson().filter((node: any) => node.id == id)
+        
+        return response.length !== 0 ? true : false;
+    }
+
     // function search (tree, value, key = 'id', reverse = false) {
     //     const stack = [ tree[0] ]
     //     while (stack.length) {
@@ -43,27 +49,34 @@ export class Tree {
     getNodeById(id: string, reverse = false) {
         const stack = [ this.treeData[0] ]
         while (stack.length) {
-          const node = stack[reverse ? 'pop' : 'shift']()
-          console.log(node);
+            const node = stack[reverse ? 'pop' : 'shift']()
           
-          if (node?.id === id) return node
-          node?.children && stack.push(...node.children)
+            if (node?.id === id) return node
+            node?.children && stack.push(...node.children)
         }
         return null
     } 
 
-    getPathByTitle(title: string, array = this.treeData) {
-        console.log(this.treeData[0].children);
-        
+    getPathByTitle(target: string, array:any) {    
         var result;
-        array?.map((node) => {   
-            // console.log(node.title);
-            // console.log("---------" + title);
-             
-                                                                                   
-            if (node.title === title) return result = node.title;
-            var temp = this.getPathByTitle(title, node.children)
-            if (temp) return result = node.title + '.' + temp;
+        array?.map((node: any) =>{                                                 
+            if (node.title === target) return result = node.title;
+            var temp = this.getPathByTitle(target, node.children)
+            if (temp) return result = node.title + '/' + temp;
+        });
+        return result;
+    }
+
+    getPathById(target: string, array:any) {  
+        var result: any;
+        array?.map((node: any) =>{                          
+            if (node.id === target) return result = node.id;
+            if (node.children) {
+                var temp = this.getPathById(target, node.children)
+                if (temp) {
+                    return result = node.id + '.' + temp;
+                } 
+            }
         });
         return result;
     }

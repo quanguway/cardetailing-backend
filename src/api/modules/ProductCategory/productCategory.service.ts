@@ -28,7 +28,7 @@ export class ProductCategoryService {
 	}
 
 	getPathByTitle(title: string) {
-		return this.treeModel.getPathByTitle(title);
+		return this.treeModel.getPathByTitle(title, this.treeModel.getJson());
 	}
 
 	getPath(node: any) {

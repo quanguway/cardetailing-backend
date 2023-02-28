@@ -7,7 +7,7 @@ export async function up(knex: Knex): Promise<void> {
     table.integer('level').nullable();
     table.string('title').notNullable();
     table.text('description').nullable();
-    table.uuid('parent_id').references('id').inTable('addresses');
+    table.uuid('parent_id');
     table.timestamp('date_created');
     table.timestamp('date_updated');
   });

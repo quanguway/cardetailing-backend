@@ -13,8 +13,8 @@ export class AddressService {
 		this.addressRepository.getAll().then((value) => {
 			this.treeModel = new Tree(value);
 		})
-	}
-
+	}  
+ 
 	getAll() {
 		return this.treeModel.getJson();
 	}
@@ -22,13 +22,34 @@ export class AddressService {
 	getArrayJson() {
 		return this.treeModel.getArrayJson()
 	}
+ 
+	create(item: Address) {
+		return this.addressRepository.create(item)
+	}
 
-	getNodeById(id:string) {
+	getNodeById(id: string) {
 		return this.treeModel.getNodeById(id)
 	}
 
+	isExist(id: string) {
+		return this.treeModel.isExist(id);
+	}
+
+	getManyNodeByIds(ids: string[]) {
+		const nodes: any[] = [];
+		
+		ids?.map((id) => {
+			nodes.push(this.treeModel.getNodeById(id))
+		})
+		return nodes;
+	}
+
+	getPathById(id:string) {
+		return this.treeModel.getPathById(id, this.treeModel.getJson())
+	}
+
 	getPathByTitle(title: string) {
-		return this.treeModel.getPathByTitle(title);
+		return this.treeModel.getPathByTitle(title, this.treeModel.getJson());
 	}
 
 	getPath(node: any) {

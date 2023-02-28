@@ -3,7 +3,6 @@ import compression from 'compression';
 import cors from 'cors';
 import { generateToken } from './api/utils/jwt.utils';
 import * as path from 'path';
-import routes from './api/routes/TRoute';
 import { config } from 'dotenv';
 import bodyParser from'body-parser'
 import routeStaffs from './api/modules/Staff/staff.route';
@@ -11,6 +10,11 @@ import renderControl from './api/utils/render.route';
 import routeAuth from './api/modules/Auth/auth.route';
 import routeAddress from './api/modules/Address/address.route';
 import routeRole from './api/modules/Role/role.route';
+import routeProductCategory from './api/modules/ProductCategory/productCategory.route';
+import routeProduct from './api/modules/Product/product.route';
+import routeUnit from './api/modules/Unit/unit.route';
+import routePromotion from './api/modules/Promotion/promotion.route';
+import routeUnitExchange from './api/modules/UnitExchange/unitExchange.route';
 
 
 // import expressLayouts from 'express-ejs-layouts';
@@ -30,11 +34,15 @@ const app = express();
   //   console.log(generateToken());
   // }
 
-  app.use('/admin', routes);
   app.use('/staff', routeStaffs)
   app.use('/auth', routeAuth)
   app.use('/address', routeAddress)
   app.use('/role', routeRole)
+  app.use('/product-category', routeProductCategory)
+  app.use('/product', routeProduct)
+  app.use('/unit', routeUnit)
+  app.use('/unit-exchange', routeUnitExchange)
+  app.use('/promotion', routePromotion)
 
   renderControl('staffs')
 

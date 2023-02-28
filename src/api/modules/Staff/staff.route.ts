@@ -13,23 +13,26 @@ const staffService = new StaffService()
 
 routeStaffs.get('/', async (req: Request, res: Response, next: NextFunction) => {
 	const staffs = await staffService.getAll();
-
-	const staffWithoutPassword = staffs.map(({password, ...orther}) => orther);
-	res.json(staffWithoutPassword) 
+	res.json(staffs) 
 })
 
-routeStaffs.post('/edit', async (req: Request, res: Response, next: NextFunction) => {
-	const {id} = req.body
+routeStaffs.post('/update', async (req: Request, res: Response, next: NextFunction) => {
+	const {item, id} = req.body
+	
+	const staffEdited = await staffService.update(id, item);
+	res.json(staffEdited) 
+})
+
+routeStaffs.post('/create', async (req: Request, res: Response, next: NextFunction) => {
+	const {item} = req.body
+	const staffEdited = await staffService.create(item);
+	res.json(staffEdited) 
 })
 
 routeStaffs.delete('/', async (req: Request, res: Response, next: NextFunction) => {
 	const {id} = req.body;
 	 
 	res.json(await staffService.delete(id))
-})
-
-routeStaffs.get('/update', async (req: Request, res: Response, next: NextFunction) => {
-	
 })
 
 export default routeStaffs;
