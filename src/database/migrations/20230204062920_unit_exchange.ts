@@ -4,6 +4,7 @@ export async function up(knex: Knex): Promise<void> {
 	await knex.schema.createTable('unit_exchanges', (table) => {
     table.uuid('id').primary().defaultTo(knex.raw('(UUID())'));
     table.integer('value').nullable();
+    table.string('title');
     table.boolean('is_base_unit').notNullable().defaultTo(false);
     table.boolean('is_report').notNullable().defaultTo(false)
     table.boolean('is_active').notNullable().defaultTo(false)

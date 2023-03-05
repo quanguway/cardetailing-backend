@@ -1,42 +1,71 @@
 import knex from "../../../database/knex";
-import { RoleRepository } from "../Role/role.repository";
+import { AddressService } from "../Address/address.service";
+import { RoleService } from "../Role/role.service";
 import { Customer } from "./customer";
+import { CustomerDTO } from "./customer.dto";
 import { CustomerRepository } from "./customer.repository";
-import bcrypt from 'bcrypt';
 
 export class CustomerService {
     private readonly customerRepository;
-    private readonly roleRepository;
+    private readonly addressService;
+    private readonly roleService;
 
     constructor() {
         this.customerRepository = new CustomerRepository(knex, 'customers');
-        this.roleRepository = new RoleRepository(knex, 'roles')
+        this.addressService = new AddressService();
+        this.roleService = new RoleService();
     }
 
     async getAll() {
         const response = await this.customerRepository.getAll();
-        return response;  
-    }
-
-    async delete(id: string) {
-        const response = await this.customerRepository.delete(id);
-        return response;  
-    }
-
-    async find(item: Customer) {
-        return await this.customerRepository.find(item);
+        const staffs: any = []
+        for(const element of response) {
+            const address = this.addressService.getNodeById(element.address_id as string);
+            const addressPathTitles = this.addressService.getPathByTitle(address.title);
+            const addressPaths = this.addressService.getPathById(element.address_id as string)
+            
+            const addressPathsCustom = addressPaths;
+            const addressPathTitlesCustom = addressPathTitles.slice(addressPathTitles.indexOf('/') + 1);
+            
+            const role = await this.roleService.findById(element.role_id);
+            const dto = new CustomerDTO(element, role, addressPathsCustom.split('.'), addressPathTitlesCustom);
+            staffs.push({...dto});
+        }
+        
+        return staffs;  
     }
 
     async findFirst(item: Customer) {
         return await this.customerRepository.findFirst(item);
     }
 
-    async create(customer: Customer) {
-        const salt = await bcrypt.genSalt(12);
-        const hashPassword = await bcrypt.hash(customer.password?.toString() ?? '', salt);
-        customer.password = hashPassword;
-        customer.role_id = (await this.roleRepository.find({title: 'CUSTOMER'})).at(0)?.id
-        const response = await this.customerRepository.create(customer);
-        return customer;  
+    async update(id:string, item: any) {
+        const addressId = item.address.id;
+        let address;
+        if(!this.addressService.isExist(addressId)) {
+            address = await this.addressService.create(item.address)
+        }
+        delete item.address;
+        item.address_id = address?.id ?? addressId;
+        
+        return await this.customerRepository.update(id, item);
     }
-} 
+
+    async create(item: any) {
+        const addressId = item.address.id;
+        let address;
+        if(!this.addressService.isExist(addressId)) {
+            address = await this.addressService.create(item.address)
+        }
+        // const staff = item.map(({address, ...orther}:{address:any}) => orther)
+        delete item.address;
+        item.address_id = address?.id ?? addressId;
+        return await this.customerRepository.create(item);
+    }
+
+
+    async delete(id: string) {
+        const response = await this.customerRepository.delete(id);
+        return response;  
+    }
+}

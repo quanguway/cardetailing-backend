@@ -11,9 +11,10 @@ export class ProductDTO{
   image: String;
   status: boolean;
   note: string;
-  category_paths: String[];
+  category_paths: String;
+  category_path_ids: string[];
   
-    constructor(data: any, categoryPath: string[]) {
+    constructor(data: any, categoryPathIds: string[], categoryPath: string) {
       this.id = data.id;
       this.product_code = data.product_code;
       this.title = data.title;
@@ -24,5 +25,6 @@ export class ProductDTO{
       this.image = data.image;
       this.category_paths = categoryPath;
       this.status = data.status;
+      this.category_path_ids = categoryPathIds
     }
   }

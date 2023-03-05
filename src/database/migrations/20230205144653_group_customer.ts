@@ -11,7 +11,6 @@ export async function up(knex: Knex): Promise<void> {
     table.timestamp('date_updated');
     table.timestamp('staff_updated');
     table.timestamp('staff_created');
-
   })
 }
 

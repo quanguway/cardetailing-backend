@@ -8,8 +8,8 @@ export async function up(knex: Knex): Promise<void> {
     table.uuid('customer_id').references('id').inTable('customers').onUpdate('CASCADE').onDelete('CASCADE');;
     table.timestamp('date_created');
     table.timestamp('date_updated');
-    table.timestamp('user_updated');
-    table.timestamp('user_created');
+    table.timestamp('staff_updated');
+    table.timestamp('staff_created');
 
   })
 }

@@ -12,6 +12,20 @@ routeUnitExchange.get('/', async (req: Request, res: Response, next: NextFunctio
 	res.json(unitExchange) 
 })
 
+routeUnitExchange.get('/unit_id', async (req: Request, res: Response, next: NextFunction) => {
+	const {unit_id} = req.query;
+	
+	// const unitExchange = await unitExchangeService.getAll();
+	const reponse = await unitExchangeService.find({unit_id: unit_id as string}) 
+	res.json(reponse) 
+})
+
+routeUnitExchange.get('/product_id', async (req: Request, res: Response, next: NextFunction) => {
+	const {product_id} = req.query;
+	const reponse = await unitExchangeService.find({product_id: product_id as string}) 
+	res.json(reponse) 
+})
+
 routeUnitExchange.post('/update', async (req: Request, res: Response, next: NextFunction) => {
 	const {id, item} = req.body;
 	console.log(item);
@@ -19,6 +33,7 @@ routeUnitExchange.post('/update', async (req: Request, res: Response, next: Next
 	const response = await unitExchangeService.update(id, item);
 	res.json(response);
 })
+
 
 routeUnitExchange.delete('/', async (req: Request, res: Response, next: NextFunction) => {
 	const {id} = req.body;

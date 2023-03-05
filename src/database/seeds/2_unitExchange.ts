@@ -8,6 +8,7 @@ export async function seed(knex: Knex): Promise<void> {
 
     const unit_exchanges: any[] = [];
     await knex('products').pluck('id').then( async(product_id) => {
+        console.log(product_id[0]);
         await knex('units').pluck('id').then( async(unit_id) => {
             for (let index = 0; index < 20; index++) {
                 unit_exchanges.push({
@@ -16,7 +17,7 @@ export async function seed(knex: Knex): Promise<void> {
                     is_report: faker.datatype.boolean(),
                     is_active: faker.datatype.boolean(),
                     allow_sale:faker.datatype.boolean(),
-                    product_id: faker.helpers.arrayElement(product_id),
+                    product_id: faker.helpers.arrayElement(await knex('products').pluck('id')),
                     unit_id: faker.helpers.arrayElement(unit_id),
                     date_created: faker.date.past(),
                     date_updated: faker.date.past()

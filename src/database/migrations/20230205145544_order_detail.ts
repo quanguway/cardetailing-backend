@@ -10,13 +10,13 @@ export async function up(knex: Knex): Promise<void> {
     table.uuid('product_id').references('id').inTable('products');
     table.uuid('order_id').references('id').inTable('orders');
     table.uuid('price_line_id').references('id').inTable('price_lines');
-    table.uuid('unit_exchange_id').references('id').inTable('unit_exchanges');
+    table.uuid('unit_id').references('id').inTable('units');
     
     table.timestamp('date_created');
     table.timestamp('date_updated');
     table.timestamp('uesr_updated');
     table.timestamp('uesr_created');
-
+ 
   })
 }
 

@@ -22,6 +22,15 @@ routeUnit.post('/update', async (req: Request, res: Response, next: NextFunction
 	res.json(response);
 })
 
+routeUnit.get('/product', async (req: Request, res: Response, next: NextFunction) => {
+	
+	const {product_id} = req.query;
+	console.log(product_id);
+	
+	const response = await unitService.getUnitOfProduct(product_id as string);
+	res.json(response);
+})
+
 routeUnit.delete('/', async (req: Request, res: Response, next: NextFunction) => {
 	const {id} = req.body;
 	 

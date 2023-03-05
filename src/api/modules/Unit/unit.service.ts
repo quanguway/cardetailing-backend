@@ -29,6 +29,10 @@ export class UnitService {
         return units; 
     }
 
+    async getUnitOfProduct(product_id: string) {
+        return this.unitRepository.getUnitOfProduct(product_id)
+    }
+
     async findFirst(item: Unit) {
         return await this.unitRepository.findFirst(item);
     }

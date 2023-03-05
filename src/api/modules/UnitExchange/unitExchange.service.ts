@@ -33,7 +33,6 @@ export class UnitExchangeService {
     }
 
     async update(id:string,item: UnitExchange) {
-       console.log(id);
        
         return this.unitExchangeRepository.update(id, item);
     }

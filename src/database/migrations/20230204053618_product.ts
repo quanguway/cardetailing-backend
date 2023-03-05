@@ -8,7 +8,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string('type').notNullable();
     table.string('title').notNullable();
     table.text('description').nullable();
-    table.integer('time_finish').nullable();
+    table.integer('time').nullable();
     table.string('image').nullable();
     table.boolean('status').nullable();
     table.text('note').nullable();

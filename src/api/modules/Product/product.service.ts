@@ -20,10 +20,13 @@ export class ProductService {
         const products: any = []
         for(const element of response) {
             const productCategory = this.productCategoryService.getNodeById(element.category_id as string);
+            const productCategoryPathTitles = this.productCategoryService.getPathByTitle(productCategory.title);
+            const productCategoryPaths = this.productCategoryService.getPathById(element.category_id as string)
             
-            const productCategoryPaths = this.productCategoryService.getPathByTitle(productCategory.title)
-            const productCategoryPathsCustom = productCategoryPaths.slice(productCategoryPaths.indexOf('.') + 1);
-            const productDTO = new ProductDTO(element, productCategoryPathsCustom);
+            const productCategoryPathsCustom = productCategoryPaths;
+            const productCategoryPathTitlesCustom = productCategoryPathTitles.slice(productCategoryPathTitles.indexOf('/') + 1);
+
+            const productDTO = new ProductDTO(element, productCategoryPathsCustom.split('.'), productCategoryPathTitlesCustom);
             products.push({...productDTO});
         }
         
@@ -32,6 +35,18 @@ export class ProductService {
 
     async findFirst(item: Product) {
         return await this.productRepository.findFirst(item);
+    }
+
+    async find(item: Product) {
+        return await this.productRepository.find(item); 
+    }
+
+    async create(item: Product) {
+        return await this.productRepository.create(item); 
+    }
+
+    async update(id: string, item: Product) {
+        return await this.productRepository.update(id,item); 
     }
 
     async delete(id: string) {

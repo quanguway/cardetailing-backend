@@ -15,6 +15,12 @@ import routeProduct from './api/modules/Product/product.route';
 import routeUnit from './api/modules/Unit/unit.route';
 import routePromotion from './api/modules/Promotion/promotion.route';
 import routeUnitExchange from './api/modules/UnitExchange/unitExchange.route';
+import routePriceLine from './api/modules/PriceLine/priceLine.route';
+import routePriceHeader from './api/modules/PriceHeader/priceHeader.route';
+import routeBooking from './api/modules/Booking/booking.route';
+import routeBookingDetail from './api/modules/BookingDetail/bookingDetail.route';
+import routeGroupCustomer from './api/modules/GroupCustomer/groupCustomer.route';
+import routeOrder from './api/modules/Order/order.route';
 
 
 // import expressLayouts from 'express-ejs-layouts';
@@ -39,10 +45,16 @@ const app = express();
   app.use('/address', routeAddress)
   app.use('/role', routeRole)
   app.use('/product-category', routeProductCategory)
-  app.use('/product', routeProduct)
+  app.use('/product', routeProduct) 
   app.use('/unit', routeUnit)
   app.use('/unit-exchange', routeUnitExchange)
   app.use('/promotion', routePromotion)
+  app.use('/price-line', routePriceLine)
+  app.use('/price-header', routePriceHeader)
+  app.use('/booking', routeBooking)
+  app.use('/booking-detail', routeBookingDetail)
+  app.use('/group-customer', routeGroupCustomer)
+  app.use('/order', routeOrder)
 
   renderControl('staffs')
 

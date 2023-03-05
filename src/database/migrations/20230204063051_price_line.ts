@@ -6,7 +6,7 @@ export async function up(knex: Knex): Promise<void> {
     table.double('price').notNullable();
     table.boolean('is_active').notNullable().defaultTo(false);
     table.uuid('product_id').references('id').inTable('products').onUpdate('CASCADE').onDelete('CASCADE');;
-    table.uuid('unit_exchange_id').references('id').inTable('unit_exchanges').onUpdate('CASCADE').onDelete('CASCADE');;
+    table.uuid('unit_id').references('id').inTable('units').onUpdate('CASCADE').onDelete('CASCADE');;
     table.uuid('price_header_id').references('id').inTable('price_headers').onUpdate('CASCADE').onDelete('CASCADE');;
     table.uuid('car_detail_id').references('id').inTable('car_details').onUpdate('CASCADE').onDelete('CASCADE');;
 
@@ -15,7 +15,7 @@ export async function up(knex: Knex): Promise<void> {
     table.timestamp('staff_updated');
     table.timestamp('staff_created');
 
-  })
+  }) 
 }
 
 

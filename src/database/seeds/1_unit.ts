@@ -1,4 +1,3 @@
-
 import { Knex } from "knex";
 import {faker} from '@faker-js/faker';
 
@@ -12,12 +11,12 @@ export async function seed(knex: Knex): Promise<void> {
     // 	date_created: faker.date.past();
     // 	date_updated: Date;
     // 	staff_updated: Date;
-        // staff_created: Date;
+        // staff_created: Date; 
     // Inserts seed entries
-    for (let index = 0; index < 5; index++) {
+    for (let index = 0; index < 1; index++) {
         await knex("units").insert([
             {
-                title: faker.internet.userName(),
+                title: "lược",
                 description: faker.lorem.paragraph(),
                 date_created: faker.date.past(),
                 date_updated: faker.date.past(),

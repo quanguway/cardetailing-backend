@@ -5,10 +5,10 @@ export async function up(knex: Knex): Promise<void> {
     table.uuid('id').primary().defaultTo(knex.raw('(UUID())'));
     table.uuid('combo_id').references('id').inTable('combos');
     table.uuid('product_id').references('id').inTable('products');
-    table.uuid('unit_exchange_id').references('id').inTable('unit_exchanges');
+    table.uuid('unit_id').references('id').inTable('units');
   })
 }
-
+  
 
 export async function down(knex: Knex): Promise<void> {
 	await knex.schema.dropTable('combo_details');

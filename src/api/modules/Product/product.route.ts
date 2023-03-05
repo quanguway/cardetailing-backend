@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response, Router } from "express";
+import { NextFunction, Request, response, Response, Router } from "express";
 import knex from "../../../database/knex";
 import { ColumnTable } from "../../repositories/reader.repository";
 import renderControl from "../../utils/render.route";
@@ -15,9 +15,17 @@ routeProduct.get('/', async (req: Request, res: Response, next: NextFunction) =>
 	res.json(products) 
 })
 
-routeProduct.post('/edit', async (req: Request, res: Response, next: NextFunction) => {
-	console.log(req.body);
-	const {id} = req.body
+routeProduct.post('/update', async (req: Request, res: Response, next: NextFunction) => {
+	const {id, item} = req.body
+	const response = await productService.update(id, item); 
+	return res.json({"msg": "success"})
+
+})
+
+routeProduct.post('/create', async (req: Request, res: Response, next: NextFunction) => {
+	const {item} = req.body;
+	const response = await productService.create(item); 
+	return res.json({"msg": "success"})
 })
 
 routeProduct.delete('/', async (req: Request, res: Response, next: NextFunction) => {
@@ -26,8 +34,8 @@ routeProduct.delete('/', async (req: Request, res: Response, next: NextFunction)
 	res.json(await productService.delete(id))
 })
 
-routeProduct.get('/update', async (req: Request, res: Response, next: NextFunction) => {
+// routeProduct.get('/update', async (req: Request, res: Response, next: NextFunction) => {
 	
-})
+// })
 
 export default routeProduct;
