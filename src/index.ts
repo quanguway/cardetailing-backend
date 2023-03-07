@@ -21,6 +21,7 @@ import routeBooking from './api/modules/Booking/booking.route';
 import routeBookingDetail from './api/modules/BookingDetail/bookingDetail.route';
 import routeGroupCustomer from './api/modules/GroupCustomer/groupCustomer.route';
 import routeOrder from './api/modules/Order/order.route';
+import routeSlot from './api/modules/Slot/slot.route';
 
 
 // import expressLayouts from 'express-ejs-layouts';
@@ -55,6 +56,7 @@ const app = express();
   app.use('/booking-detail', routeBookingDetail)
   app.use('/group-customer', routeGroupCustomer)
   app.use('/order', routeOrder)
+  app.use('/slot', routeSlot)
 
   renderControl('staffs')
 
