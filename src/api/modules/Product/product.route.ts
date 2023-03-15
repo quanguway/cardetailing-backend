@@ -12,6 +12,7 @@ const productService = new ProductService()
 
 routeProduct.get('/', async (req: Request, res: Response, next: NextFunction) => {
 	const products = await productService.getAll();
+	
 	res.json(products) 
 })
 

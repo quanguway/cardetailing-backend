@@ -22,7 +22,7 @@ export class BookingDTO{
       this.booking_details = bookingDetails;
       this.date_created = data.date_created
       this.date_updated = data.date_updated
-      this.user_created = data.user_created
+      this.user_created = data.user_created 
       this.user_updateed = data.user_updateed
     }
   }

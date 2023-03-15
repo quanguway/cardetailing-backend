@@ -13,7 +13,7 @@ export async function seed(knex: Knex): Promise<void> {
         
         for (let index = 0; index < 6; index++) {
             array.push({
-                title: `slot${index}`,
+                title: `slot ${index}`,
                 is_empty: true
             })
         }

@@ -22,6 +22,9 @@ import routeBookingDetail from './api/modules/BookingDetail/bookingDetail.route'
 import routeGroupCustomer from './api/modules/GroupCustomer/groupCustomer.route';
 import routeOrder from './api/modules/Order/order.route';
 import routeSlot from './api/modules/Slot/slot.route';
+import routeCarInfo from './api/modules/CarInfo/carInfo.route';
+import routeCustomer from './api/modules/Custommer/customer.route';
+import routeCarDetail from './api/modules/CarDetail/carDetail.route';
 
 
 // import expressLayouts from 'express-ejs-layouts';
@@ -55,8 +58,11 @@ const app = express();
   app.use('/booking', routeBooking)
   app.use('/booking-detail', routeBookingDetail)
   app.use('/group-customer', routeGroupCustomer)
+  app.use('/customer', routeCustomer)
   app.use('/order', routeOrder)
   app.use('/slot', routeSlot)
+  app.use('/car-info', routeCarInfo)
+  app.use('/car-detail', routeCarDetail)
 
   renderControl('staffs')
 

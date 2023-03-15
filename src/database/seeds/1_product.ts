@@ -10,7 +10,7 @@ export async function seed(knex: Knex): Promise<void> {
     const salt = await bcrypt.genSalt(12);
     const products: any[] = [];
     await knex('product_categories').pluck('id').then( async(category_id) => {
-        
+        category_id = category_id.filter((element) => element != '72db5ebc-b4ca-11ed-afa1-0242ac120002')
         for (let index = 0; index < 5; index++) {
             products.push({
                 product_code: faker.internet.userName(),
@@ -21,9 +21,9 @@ export async function seed(knex: Knex): Promise<void> {
                 time: faker.datatype.number(),
                 image: faker.image.avatar(),
                 status: faker.datatype.boolean(),
-                category_id: faker.helpers.arrayElement(['af6fa13a-ae1c-11ed-afa1-0242ac120002', 'af6fc13a-ae1c-11ed-afa1-0242ac120002']),
+                category_id: faker.helpers.arrayElement(category_id),
                 date_created: faker.date.past(),
-                date_updated: faker.date.past()
+                date_updated: faker.date.past() 
             })
         }
         await knex("products").insert(products);

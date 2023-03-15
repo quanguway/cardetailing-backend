@@ -30,7 +30,7 @@ export async function seed(knex: Knex): Promise<void> {
             parent_id: '803ddf12-b4ca-11ed-afa1-0242ac120002',
         },
         {
-            id: 'af6fc13a-ae1c-11ed-afa1-0242ac120002',
+            id: '6e03aeaa-c076-11ed-afa1-0242ac120002',
             level: 2,
             title: 'Rửa xe',
             parent_id: '8b98034c-b4ca-11ed-afa1-0242ac120002',

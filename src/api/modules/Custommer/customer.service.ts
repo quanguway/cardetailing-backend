@@ -36,7 +36,17 @@ export class CustomerService {
     }
 
     async findFirst(item: Customer) {
-        return await this.customerRepository.findFirst(item);
+        const customer = await this.customerRepository.findFirst(item);
+        const address = this.addressService.getNodeById(customer.address_id as string);
+        const addressPathTitles = this.addressService.getPathByTitle(address.title);
+        const addressPaths = this.addressService.getPathById(customer.address_id as string)
+        
+        const addressPathsCustom = addressPaths;
+        const addressPathTitlesCustom = addressPathTitles.slice(addressPathTitles.indexOf('/') + 1);
+        
+        const role = await this.roleService.findById(customer.role_id);
+        const dto = new CustomerDTO(customer, role, addressPathsCustom.split('.'), addressPathTitlesCustom);
+        return dto; 
     }
 
     async update(id:string, item: any) {
@@ -54,7 +64,7 @@ export class CustomerService {
     async create(item: any) {
         const addressId = item.address.id;
         let address;
-        if(!this.addressService.isExist(addressId)) {
+        if(!this.addressService.isExist(addressId)) { 
             address = await this.addressService.create(item.address)
         }
         // const staff = item.map(({address, ...orther}:{address:any}) => orther)

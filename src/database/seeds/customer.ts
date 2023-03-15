@@ -16,7 +16,7 @@ export async function seed(knex: Knex): Promise<void> {
         for (let index = 0; index < 20; index++) {
             posts.push({
                 full_name: faker.internet.userName(),
-                phone: faker.phone.number('+84-###-###-###'), 
+                phone: faker.phone.number('0#########'), 
                 email:faker.internet.email(),
                 gender: faker.datatype.boolean(),
                 note: faker.lorem.paragraph(),

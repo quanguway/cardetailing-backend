@@ -16,6 +16,7 @@ routeBookingDetail.get('/booking_id', async (req: Request, res: Response, next: 
 	const {booking_id} = req.query;
 	
 	const reponse = await bookingDetailService.find({booking_id: booking_id as string}) 
+	
 	res.json(reponse) 
 })
 
@@ -32,7 +33,7 @@ routeBookingDetail.delete('/', async (req: Request, res: Response, next: NextFun
 	const {id} = req.body;
 	 
 	res.json(await bookingDetailService.delete(id))
-})
+}) 
 
 // routeBookingDetail.get('/update', async (req: Request, res: Response, next: NextFunction) => {
 	

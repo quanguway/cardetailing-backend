@@ -1,18 +1,17 @@
 import { Request, Response, Router } from "express";
 import { ProductCategoryService } from "./productCategory.service";
 
-const table_name = 'staffs'
 
 const routeProductCategory= Router();
 
 const productCategoryService = new ProductCategoryService();
 
 routeProductCategory.get('/', async(req: Request, res: Response) => { 
-    res.json(await productCategoryService.getAll())
+    res.json(await productCategoryService.getAllTree())
 });
 
 routeProductCategory.get('/none-root', async(req: Request, res: Response) => { 
-    res.json(await productCategoryService.getAll()[0].children)
+    res.json(await productCategoryService.getAllTree()[0].children)
 });
 routeProductCategory.get('/test', async(req: Request, res: Response) => res.json(await productCategoryService.getArrayJson()));
 routeProductCategory.post('/save', async(req: Request, res: Response) => {

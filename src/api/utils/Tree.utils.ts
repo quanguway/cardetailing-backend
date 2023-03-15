@@ -8,7 +8,7 @@ export interface NodeModel {
     children?: NodeModel[];
     level?: number;
 }
-
+ 
 export class Tree {
     private treeData: NodeModel[];
     private treeModel;

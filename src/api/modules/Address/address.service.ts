@@ -36,12 +36,13 @@ export class AddressService {
 	}
 
 	getManyNodeByIds(ids: string[]) {
+		
 		const nodes: any[] = [];
 		
 		ids?.map((id) => {
 			nodes.push(this.treeModel.getNodeById(id))
 		})
-		return nodes;
+		return nodes; 
 	}
 
 	getPathById(id:string) {

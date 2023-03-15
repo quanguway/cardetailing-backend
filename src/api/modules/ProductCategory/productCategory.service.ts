@@ -13,9 +13,10 @@ export class ProductCategoryService {
 		this.productCategoryRepository.getAll().then((value) => {
 			this.treeModel = new Tree(value);
 		})
-	}  
+		// this.treeModel = new Tree([]);
+	}    
  
-	getAll() {
+	getAllTree() {
 		return this.treeModel.getJson();
 	}
 
@@ -49,7 +50,7 @@ export class ProductCategoryService {
 	getPathById(id:string) {
 		return this.treeModel.getPathById(id, this.treeModel.getJson())
 	}
-
+ 
 	getPathByTitle(title: string) {
 		return this.treeModel.getPathByTitle(title, this.treeModel.getJson());
 	}

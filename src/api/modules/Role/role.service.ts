@@ -29,6 +29,7 @@ export class RoleService {
     }
 
     async findById(id: string | undefined) {
+ 
         const response = await this.roleRepository.findById(id);
         return response;
     }

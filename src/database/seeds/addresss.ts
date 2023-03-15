@@ -32,6 +32,12 @@ export async function seed(knex: Knex): Promise<void> {
           parent_id: '8c07d910-a95d-11ed-afa1-0242ac120002',
         },
         {
+          id: 'b694d3e6-bee2-11ed-afa1-0242ac120002',
+          level: 4,
+          title: 'asdasdwdasd',
+          parent_id: '989bbad4-a95d-11ed-afa1-0242ac120002',
+        },
+        {
           'id': '6b30266c-a970-11ed-afa1-0242ac120002',
           'level': 1,
           'title': 'Bến Tre',

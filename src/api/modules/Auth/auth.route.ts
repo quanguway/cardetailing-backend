@@ -31,22 +31,22 @@ routeAuth.post('/register', async (req: Request, res: Response, next: NextFuncti
 }); 
 
 routeAuth.post('/login', async (req: Request, res: Response, next: NextFunction) => {
-	const {phone, password} = req.body
-	const account = await customerService.findFirst({phone: phone}) ?? await staffService.findFirst({phone: phone})
-	if (account && password) {
-		if( await bcrypt.compare(password, account.password ?? '')) {
-			const response = account;
+	// const {phone, password} = req.body
+	// const account = await customerService.findFirst({phone: phone}) ?? await staffService.findFirst({phone: phone})
+	// if (account && password) {
+	// 	if( await bcrypt.compare(password, account.password ?? '')) {
+	// 		const response = account;
 			
-			const authDTO = new RegisterAuthDTO(response ,await permissionService.getPermissionOfRole(response.role_id));
+	// 		const authDTO = new RegisterAuthDTO(response ,await permissionService.getPermissionOfRole(response.role_id));
 			
-			return res.json(authDTO);
-		} else {
-		return res.json({err: 1, message: 'nhập sai mật khẩu'})
+	// 		return res.json(authDTO);
+	// 	} else {
+	// 	return res.json({err: 1, message: 'nhập sai mật khẩu'})
 
-		}
-	} else {
-		return res.json({err: 1, message: 'Số điện thoại này chưa đăng kí tài khoản'})
-	}
+	// 	}
+	// } else {
+	// 	return res.json({err: 1, message: 'Số điện thoại này chưa đăng kí tài khoản'})
+	// }
    
 }); 
 

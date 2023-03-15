@@ -17,7 +17,7 @@ export class BookingDetailService {
         this.priceLineService = new PriceLineService();
         this.unitChangeService =  new UnitExchangeService();
     }
-
+  
     async getAll() {
         const response = await this.BookingDetailRepository.getAll();
         
@@ -26,6 +26,10 @@ export class BookingDetailService {
 
     async findFirst(item: BookingDetail) {
         return await this.BookingDetailRepository.findFirst(item);
+    }
+
+    async createMany(items: any) {
+        return await this.BookingDetailRepository.createMany(items);
     }
 
     async find(item: BookingDetail) {
@@ -37,7 +41,6 @@ export class BookingDetailService {
             const unit_exchange = await this.unitChangeService.findFirst({id: element.unit_exchange_id})
 
             console.log(priceLine);
-            
 
             const bookingDetailDTO = new BookingDetailDTO(element, product, priceLine, unit_exchange)
             array.push({...bookingDetailDTO})

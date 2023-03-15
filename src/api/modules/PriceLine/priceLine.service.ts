@@ -7,14 +7,12 @@ import { PriceLineDTO } from "./priceLine.dto";
 import { PriceLineRepository } from "./priceLine.repository";
 export class PriceLineService {
     private readonly priceLineRepository;
-    private readonly productService;
-    private readonly unitExchangeService;
-    private readonly unitService;
+    // private readonly unitExchangeService;
+    // private readonly unitService;
     constructor() {
         this.priceLineRepository = new PriceLineRepository(knex, 'price_lines');
-        this.productService = new ProductService();
-        this.unitExchangeService = new UnitExchangeService();
-        this.unitService = new UnitService();
+        // this.unitExchangeService = new UnitExchangeService();
+        // this.unitService = new UnitService();
     }
 
     async getAll() {
@@ -24,23 +22,21 @@ export class PriceLineService {
     }
 
     async findFirst(item: PriceLine) {
-        console.log(item);
-        
         return await this.priceLineRepository.findFirst(item);
     }
 
     async find(item: PriceLine) {
         const response = await this.priceLineRepository.find(item);
         
-        const array = []
-        for (const element of response) {
-            const product = await this.productService.findFirst({id: element.product_id})
+        // const array = []
+        // for (const element of response) {
+        //     const product = await this.productService.findFirst({id: element.product_id})
             
-            const unit = await this.unitService.findFirst({id: element.unit_id as string})
-            const pricLine = new PriceLineDTO(element, product, unit)
-            array.push({...pricLine})
-        }  
-        return array 
+        //     const unit = await this.unitService.findFirst({id: element.unit_id as string})
+        //     const pricLine = new PriceLineDTO(element, product, unit)
+        //     array.push({...pricLine})
+        // }  
+        return response 
     }
 
     async update(id:string,item: PriceLine) {

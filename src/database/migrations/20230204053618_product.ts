@@ -12,7 +12,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string('image').nullable();
     table.boolean('status').nullable();
     table.text('note').nullable();
-    table.uuid('category_id').references('id').inTable('product_categories').onUpdate('CASCADE').onDelete('CASCADE');
+    table.uuid('category_id').references('id').inTable('product_categories');
     table.timestamp('date_created').nullable();
     table.timestamp('date_updated').nullable();
     table.timestamp('staff_created').nullable();

@@ -10,4 +10,4 @@ export interface BookingDetail {
     date_updated?: Date
     user_created?: Date
     user_updated?: Date
-}
+} 

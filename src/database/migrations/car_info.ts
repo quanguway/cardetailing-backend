@@ -2,18 +2,16 @@ import { Knex } from "knex";
 
 
 export async function up(knex: Knex): Promise<void> {
-	await knex.schema.createTable('slots', (table) => {
+	await knex.schema.createTable('car_info', (table) => {
     table.uuid('id').primary().defaultTo(knex.raw('(UUID())'));
-    table.string('title');
-    table.boolean('is_empty');
-    table.uuid('booking_id');
+    table.uuid('branch');
+    table.uuid('type');
+  })
 
-  });
 }
- 
+
 
 export async function down(knex: Knex): Promise<void> {
-	await knex.schema.dropTable('slots');
+	await knex.schema.dropTable('car_info');
 }
 
- 

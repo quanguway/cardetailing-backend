@@ -1,4 +1,5 @@
 import knex from "../../../database/knex";
+import { PriceLineService } from "../PriceLine/priceLine.service";
 import { ProductCategoryService } from "../ProductCategory/productCategory.service";
 import { RoleService } from "../Role/role.service";
 import { Product } from "./product";
@@ -8,10 +9,12 @@ import { ProductRepository } from "./product.repository";
 export class ProductService {
     private readonly productRepository;
     private readonly productCategoryService;
+    private readonly priceLineService;
 
     constructor() {
         this.productRepository = new ProductRepository(knex, 'products');
         this.productCategoryService = new ProductCategoryService();
+        this.priceLineService = new PriceLineService();
     }
 
     async getAll() {
@@ -26,7 +29,12 @@ export class ProductService {
             const productCategoryPathsCustom = productCategoryPaths;
             const productCategoryPathTitlesCustom = productCategoryPathTitles.slice(productCategoryPathTitles.indexOf('/') + 1);
 
-            const productDTO = new ProductDTO(element, productCategoryPathsCustom.split('.'), productCategoryPathTitlesCustom);
+            const priceLine = await this.priceLineService.findFirst({product_id: element.id as string});
+            
+
+            const productDTO = new ProductDTO(element, productCategoryPathsCustom.split('.'), productCategoryPathTitlesCustom, priceLine);
+
+            
             products.push({...productDTO});
         }
         
