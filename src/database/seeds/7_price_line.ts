@@ -10,7 +10,6 @@ export async function seed(knex: Knex): Promise<void> {
     const product_id = await knex('products').pluck('id');
     const unit_exchange_id = await knex('unit_exchanges').pluck('id')
     const price_header_id = await knex('price_headers').pluck('id')
-
     for (let index = 0; index < 20; index++) {
         price_lines.push({
             price: faker.datatype.number(), 

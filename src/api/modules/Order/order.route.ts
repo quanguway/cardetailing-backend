@@ -29,6 +29,12 @@ routeOrder.post('/create', async (req: Request, res: Response, next: NextFunctio
 	res.json(response) 
 })
 
+routeOrder.post('/payment',async (req: Request, res: Response, next: NextFunction) => {
+	const {order, order_details} = req.body;
+	const response = await orderService.payment(order, order_details);
+	res.json(response);
+})
+
 routeOrder.delete('/', async (req: Request, res: Response, next: NextFunction) => {
 	const {id} = req.body;
 	 
