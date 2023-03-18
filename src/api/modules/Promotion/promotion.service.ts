@@ -45,16 +45,23 @@ export class PromotionService {
         console.log(params);
         await this.promtionRepository.create(params.promotion);
 
-        const promotionDetail = {
-            id: params.promotionDetail.id,
-            promotion_code: params.promotionDetail.promotion_code,
-            start_date: params.promotionDetail.start_date,
-            end_date: params.promotionDetail
-        }
+        const promotionLine = params.promotionDetail.map((item: any) => ({
+            id: item.id,
+            promotion_code: item.promotion_code,
+            start_date: item.start_date,
+            end_date: item.end_date,
+            promotion_id: params.promotion.id
+        })) 
 
-        // this.promotionDetailRepository.create({
-        //     id:
-        // })
+        const promotionDetail = params.promotionDetail.map((item:any) => ({
+            percent: item.percent,
+            reduction_amount: item.reduction_amount,
+            price_line_id: item.id,
+
+        }))
+
+        this.promotionLineRepository.createMany(promotionLine);
+        this.promotionDetailRepository.createMany(promotionDetail);
     }
 
     async delete(id: string) {
