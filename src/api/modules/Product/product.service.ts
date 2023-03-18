@@ -17,8 +17,31 @@ export class ProductService {
         this.priceLineService = new PriceLineService();
     }
 
-    async getAll() {
 
+    async getAllWithoutPrice() {
+        const response = await this.productRepository.getAll();
+        
+        const products: any = []
+        for(const element of response) {
+            const productCategory = this.productCategoryService.getNodeById(element.category_id as string);
+            const productCategoryPathTitles = this.productCategoryService.getPathByTitle(productCategory.title);
+            const productCategoryPaths = this.productCategoryService.getPathById(element.category_id as string)
+            
+            const productCategoryPathsCustom = productCategoryPaths;
+            const productCategoryPathTitlesCustom = productCategoryPathTitles.slice(productCategoryPathTitles.indexOf('/') + 1);
+
+            const priceLine = await this.priceLineService.findFirst({product_id: element.id as string});
+            
+
+            const productDTO = new ProductDTO(element, productCategoryPathsCustom.split('.'), productCategoryPathTitlesCustom, priceLine);
+
+            
+            products.push({...productDTO});
+        }
+        return products;
+    }
+
+    async getAll() {
 
         const priceLines = await knex('price_lines')
             .where(new Date() , '>', 'start_date')

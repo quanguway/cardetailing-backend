@@ -16,6 +16,12 @@ routeProduct.get('/', async (req: Request, res: Response, next: NextFunction) =>
 	res.json(products) 
 })
 
+routeProduct.get('/without-price', async (req: Request, res: Response, next: NextFunction) => {
+	const products = await productService.getAllWithoutPrice();
+	
+	res.json(products);
+})
+
 routeProduct.post('/update', async (req: Request, res: Response, next: NextFunction) => {
 	const {id, item} = req.body
 	const response = await productService.update(id, item); 
