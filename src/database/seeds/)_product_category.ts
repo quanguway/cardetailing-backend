@@ -14,13 +14,13 @@ export async function seed(knex: Knex): Promise<void> {
         {
             id: '803ddf12-b4ca-11ed-afa1-0242ac120002',
             level: 1,
-            title: 'Product',
+            title: 'Sản phẩm',
             parent_id: '72db5ebc-b4ca-11ed-afa1-0242ac120002',
         },
         {
             id: '8b98034c-b4ca-11ed-afa1-0242ac120002',
             level: 1,
-            title: 'Service',
+            title: 'Dịch vụ',
             parent_id: '72db5ebc-b4ca-11ed-afa1-0242ac120002',
         },
         {

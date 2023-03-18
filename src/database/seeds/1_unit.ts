@@ -15,10 +15,18 @@ export async function seed(knex: Knex): Promise<void> {
     // Inserts seed entries
     for (let index = 0; index < 1; index++) {
         await knex("units").insert([
+            // {
+            //     title: "lượt",
+            //     description: faker.lorem.paragraph(),
+            //     date_created: faker.date.past(),
+            //     date_updated: faker.date.past(),
+            //     staff_updated: faker.date.past(),
+            //     staff_created: faker.date.past(),
+            // },
             {
-                title: "lược",
-                description: faker.lorem.paragraph(),
-                date_created: faker.date.past(),
+                title: "lượt",
+                description: 'Không có mô tả',
+                date_created:faker.date.past(),
                 date_updated: faker.date.past(),
                 staff_updated: faker.date.past(),
                 staff_created: faker.date.past(),
