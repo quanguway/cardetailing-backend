@@ -4,7 +4,8 @@ export interface BookingDetail {
     booking_id?: string
     product_id?: string
     unit_exchange_id?: string
-    price_id?: string
+    price_id?: string;
+    staff_id?:string;
     note?: string 
     date_created?: Date
     date_updated?: Date

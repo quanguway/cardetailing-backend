@@ -21,7 +21,9 @@ export class SlotService {
         const arr: any[] = [];
         for(const element of response) {
             const bookingService = new BookingService();
-            const booking = element.booking_id ? bookingService.findFirst({id: element.booking_id}) : undefined
+            const booking = element.booking_id ? await bookingService.findFirst({id: element.booking_id}) : undefined
+            console.log(booking);
+            
             arr.push(new SlotDTO(element, booking as Booking))
         }
         return arr; 
@@ -29,7 +31,7 @@ export class SlotService {
 
     async findFirst(item: Slot) {
         return await this.slotRepository.findFirst(item);
-    }
+    } 
 
     async update (id:string, item: Slot) {
         return await this.slotRepository.update(id, item)

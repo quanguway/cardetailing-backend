@@ -37,16 +37,17 @@ export class CustomerService {
 
     async findFirst(item: Customer) {
         const customer = await this.customerRepository.findFirst(item);
-        const address = this.addressService.getNodeById(customer.address_id as string);
-        const addressPathTitles = this.addressService.getPathByTitle(address.title);
-        const addressPaths = this.addressService.getPathById(customer.address_id as string)
         
-        const addressPathsCustom = addressPaths;
-        const addressPathTitlesCustom = addressPathTitles.slice(addressPathTitles.indexOf('/') + 1);
+        // const address = this.addressService.getNodeById(customer.address_id as string);
+        // const addressPathTitles = this.addressService.getPathByTitle(address.title);
+        // const addressPaths = this.addressService.getPathById(customer.address_id as string)
         
-        const role = await this.roleService.findById(customer.role_id);
-        const dto = new CustomerDTO(customer, role, addressPathsCustom.split('.'), addressPathTitlesCustom);
-        return dto; 
+        // const addressPathsCustom = addressPaths;
+        // const addressPathTitlesCustom = addressPathTitles.slice(addressPathTitles.indexOf('/') + 1);
+        
+        // const role = await this.roleService.findById(customer.role_id);
+        // const dto = new CustomerDTO(customer, role, addressPathsCustom.split('.'), addressPathTitlesCustom);
+        return customer; 
     }
 
     async update(id:string, item: any) {

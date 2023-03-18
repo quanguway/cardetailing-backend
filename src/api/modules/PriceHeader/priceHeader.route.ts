@@ -17,7 +17,6 @@ routePriceHeader.get('/', async (req: Request, res: Response, next: NextFunction
 })
 
 routePriceHeader.post('/update', async (req: Request, res: Response, next: NextFunction) => {
-	// console.log(req.body);
 	const {id, item} = req.body
 	const response = await priceHeaderService.update(id, item);
 	res.json(response); 

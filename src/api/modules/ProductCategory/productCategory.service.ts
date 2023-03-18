@@ -42,7 +42,6 @@ export class ProductCategoryService {
 		ids?.map((id) => {
 			nodes.push(this.treeModel.getNodeById(id))
 		})
-		console.log(nodes);
 		
 		return nodes;
 	}

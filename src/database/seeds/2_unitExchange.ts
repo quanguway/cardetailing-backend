@@ -8,7 +8,6 @@ export async function seed(knex: Knex): Promise<void> {
 
     const unit_exchanges: any[] = [];
     await knex('products').pluck('id').then( async(product_id) => {
-        console.log(product_id[0]);
         await knex('units').pluck('id').then( async(unit_id) => {
             for (let index = 0; index < 20; index++) {
                 unit_exchanges.push({

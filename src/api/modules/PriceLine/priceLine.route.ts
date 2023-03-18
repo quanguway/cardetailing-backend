@@ -20,7 +20,6 @@ routePriceLine.get('/price-header-id', async (req: Request, res: Response, next:
 	
 	// const unitExchange = await priceLineService.getAll();
 	const reponse = await priceLineService.find({price_header_id: price_header_id as string})
-	console.log(response);
 	
 	res.json(reponse) 
 })
@@ -30,7 +29,6 @@ routePriceLine.get('/product-and-unit', async (req: Request, res: Response, next
 	
 	// const unitExchange = await priceLineService.getAll();
 	const reponse = await priceLineService.findFirst({product_id: product_id as string, unit_id: unit_id as string})
-	console.log(reponse);
 	
 	// const currentDate = new Date().getTime()
 	// for (const item in response) {

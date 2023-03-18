@@ -18,7 +18,6 @@ export class ProductDTO{
   price_line_id?: string;
   
     constructor(data: any, categoryPathIds: string[], categoryPath: string, priceLine: PriceLine) {
-      console.log(priceLine);
       
       this.id = data.id;
       this.product_code = data.product_code;

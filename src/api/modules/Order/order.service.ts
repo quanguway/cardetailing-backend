@@ -29,8 +29,6 @@ export class OrderService {
     async create(order: any, order_details: any[]) {
         try {
             await knex.transaction(async (trx: any) => {
-              
-                console.log(order);
                 
 
                 const reponse = await knex('orders').insert(order).transacting(trx); 

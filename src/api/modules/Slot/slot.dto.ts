@@ -5,12 +5,13 @@ export class SlotDTO{
     id?: string;
     title?: string;
     is_empty?: boolean;
-    booking?: Booking;
+    // booking?: Booking;
+    booking_id?: string; 
   
     constructor(data: any, booking: Booking) {
-        this.booking = booking;
         this.id= data.id;
         this.title= data.title;
         this.is_empty= data.is_empty;
+        this.booking_id = booking?.id;  
     }
   } 

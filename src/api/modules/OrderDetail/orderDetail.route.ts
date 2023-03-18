@@ -22,7 +22,6 @@ routeOrderDetail.get('/booking_id', async (req: Request, res: Response, next: Ne
 
 routeOrderDetail.post('/update', async (req: Request, res: Response, next: NextFunction) => {
 	const {id, item} = req.body;
-	console.log(item);
 	
 	const response = await orderDetailService.update(id, item);
 	res.json(response);

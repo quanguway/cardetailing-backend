@@ -28,7 +28,6 @@ routeUnitExchange.get('/product_id', async (req: Request, res: Response, next: N
 
 routeUnitExchange.post('/update', async (req: Request, res: Response, next: NextFunction) => {
 	const {id, item} = req.body;
-	console.log(item);
 	
 	const response = await unitExchangeService.update(id, item);
 	res.json(response);

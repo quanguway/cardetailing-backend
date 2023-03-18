@@ -26,7 +26,6 @@ routeProductCategory.get('/id', async(req: Request, res: Response) => {
 
 routeProductCategory.get('/ids', async(req: Request, res: Response) => {
     const {ids} = req.query;
-    console.log(ids);
     
     res.json(productCategoryService.getManyNodeByIds(ids as string[]))
 }); 

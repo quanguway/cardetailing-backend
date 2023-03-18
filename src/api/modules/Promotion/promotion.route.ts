@@ -16,6 +16,11 @@ routePromotion.post('/edit', async (req: Request, res: Response, next: NextFunct
 	const {id} = req.body
 })
 
+routePromotion.post('/create', async (req: Request, res: Response, next: NextFunction) => {
+	const param = req.body
+	promotiomService.create(param);
+})
+
 routePromotion.delete('/', async (req: Request, res: Response, next: NextFunction) => {
 	const {id} = req.body;
 	 
