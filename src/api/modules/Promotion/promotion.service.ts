@@ -42,19 +42,39 @@ export class PromotionService {
     }
 
     async create(params:any) {
-        console.log(params);
-        await this.promtionRepository.create(params.promotion);
+        try {
+            await this.promtionRepository.create(params.promotion);
 
-        const promotionDetail = {
-            id: params.promotionDetail.id,
-            promotion_code: params.promotionDetail.promotion_code,
-            start_date: params.promotionDetail.start_date,
-            end_date: params.promotionDetail
+            console.log(params.promotionDetail);
+            
+
+            const promotionLine = params.promotionDetail.map((item: any) => ({
+                id: item.id,
+                promotion_code: item.promotion_code,
+                start_date: item.start_date,
+                end_date: item.end_date,
+                type: item.type,
+                promotion_id: params.promotion.id
+            })) 
+            
+
+            const promotionDetail = params.promotionDetail.map((item:any) => ({
+                percent: ! item.percent ? 0 : item.percent,
+                reduction_amount: ! item.reduction_amount ? 0 : item.reduction_amount,
+                promotion_line_id: item.id,
+                product_received_id: item.product_received_id,
+                product_buy_id: item.product_buy_id,
+                quantity_product_buy: item.quantity_product_buy ?? 0,
+                minimum_total: item.minimum_total ?? 0,
+            }))
+
+            await this.promotionLineRepository.createMany(promotionLine);
+            await this.promotionDetailRepository.createMany(promotionDetail);
+        } catch (error) {
+            console.log(error);
+            
         }
-
-        // this.promotionDetailRepository.create({
-        //     id:
-        // })
+        
     }
 
     async delete(id: string) {

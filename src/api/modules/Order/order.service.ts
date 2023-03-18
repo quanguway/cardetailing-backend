@@ -42,6 +42,22 @@ export class OrderService {
           }
     }
 
+    async payment(order: any, order_details: any[]) {
+        try {
+            await knex.transaction(async (trx: any) => {
+                
+
+                const reponse = await knex('orders').insert(order).transacting(trx); 
+                // const orderDetailCustom = order_details.map(({...element }) => {return {...element,type:'SERVICE' , status: 'SERVICE', order_id: order.id}});
+                const orderDetailIds = await knex('order_details').insert(order_details).transacting(trx);
+
+              
+            })
+          } catch (error) {  
+            console.error(error);
+          }
+    }
+
 
     async delete(id: string) {
         const response = await this.orderRepository.delete(id);

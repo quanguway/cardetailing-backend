@@ -18,25 +18,51 @@ export class ProductService {
     }
 
     async getAll() {
-        const response = await this.productRepository.getAll();
-        
+
+
+        const priceLines = await knex('price_lines')
+            .where(new Date() , '>', 'start_date')
+            .andWhere(new Date(), '<', 'end_date')
+            .andWhere('is_active', true);
+
         const products: any = []
-        for(const element of response) {
-            const productCategory = this.productCategoryService.getNodeById(element.category_id as string);
+
+        for(const element of priceLines) {
+            const product = await this.productRepository.findFirst({id: element.product_id});
+
+            const productCategory = this.productCategoryService.getNodeById(product.category_id as string);
             const productCategoryPathTitles = this.productCategoryService.getPathByTitle(productCategory.title);
-            const productCategoryPaths = this.productCategoryService.getPathById(element.category_id as string)
+            const productCategoryPaths = this.productCategoryService.getPathById(product.category_id as string)
             
             const productCategoryPathsCustom = productCategoryPaths;
             const productCategoryPathTitlesCustom = productCategoryPathTitles.slice(productCategoryPathTitles.indexOf('/') + 1);
-
-            const priceLine = await this.priceLineService.findFirst({product_id: element.id as string});
-            
-
-            const productDTO = new ProductDTO(element, productCategoryPathsCustom.split('.'), productCategoryPathTitlesCustom, priceLine);
+        
+            const productDTO = new ProductDTO(product, productCategoryPathsCustom.split('.'), productCategoryPathTitlesCustom, element);
 
             
             products.push({...productDTO});
         }
+        
+
+        // const response = await this.productRepository.getAll();
+        
+        // const products: any = []
+        // for(const element of response) {
+        //     const productCategory = this.productCategoryService.getNodeById(element.category_id as string);
+        //     const productCategoryPathTitles = this.productCategoryService.getPathByTitle(productCategory.title);
+        //     const productCategoryPaths = this.productCategoryService.getPathById(element.category_id as string)
+            
+        //     const productCategoryPathsCustom = productCategoryPaths;
+        //     const productCategoryPathTitlesCustom = productCategoryPathTitles.slice(productCategoryPathTitles.indexOf('/') + 1);
+
+        //     const priceLine = await this.priceLineService.findFirst({product_id: element.id as string});
+            
+
+        //     const productDTO = new ProductDTO(element, productCategoryPathsCustom.split('.'), productCategoryPathTitlesCustom, priceLine);
+
+            
+        //     products.push({...productDTO});
+        // }
         
         return products; 
     }
