@@ -30,8 +30,8 @@ routeOrder.post('/create', async (req: Request, res: Response, next: NextFunctio
 })
 
 routeOrder.post('/payment',async (req: Request, res: Response, next: NextFunction) => {
-	const {order, order_details} = req.body;
-	const response = await orderService.payment(order, order_details);
+	const {order, order_details, slot_id} = req.body;
+	const response = await orderService.payment(order, order_details, slot_id);
 	res.json(response);
 })
 
