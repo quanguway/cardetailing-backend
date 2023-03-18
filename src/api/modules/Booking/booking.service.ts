@@ -68,6 +68,7 @@ export class BookingService {
             customer_id: item.customer.id,
             slot_id: item.slot_id,
             car_detail_id: item.car_detail_id,
+            date_created: new Date(),
             status: 'WAITING'
         } 
 
