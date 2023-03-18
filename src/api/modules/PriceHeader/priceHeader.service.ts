@@ -39,6 +39,7 @@ export class PriceHeaderService {
 
     async create (priceHeader: PriceHeader, priceLines: any) {
         try {
+            console.log(priceHeader);
             await knex.transaction(async (trx: any) => {
                 const reponse = await knex('price_headers').insert(priceHeader).transacting(trx); 
                 const priceLineCustom = priceLines.map(({...element }) => {return {...element, price_header_id: priceHeader.id}});
