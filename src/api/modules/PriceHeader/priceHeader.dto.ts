@@ -9,6 +9,7 @@ export class PriceHeaderDTO{
     end_date: Date
     is_active: boolean
     priceLine: PriceLine[];
+
   
     constructor(data: any, priceLine: PriceLine[]) {
       this.id = data.id;
