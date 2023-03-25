@@ -6,64 +6,69 @@ import { Address } from "./address";
 import { AddressRepository } from "./address.repository";
 
 export class AddressService {
-	private readonly addressRepository;
-	private treeModel: any;
-	constructor() { 
-		this.addressRepository = new AddressRepository(knex, 'addresses')
-		this.addressRepository.getAll().then((value) => {
-			this.treeModel = new Tree(value);
-		})
-	}  
- 
-	getAll() {
-		return this.treeModel.getJson();
-	}
+  private readonly addressRepository;
+  private treeModel: any;
+  constructor() {
+    this.addressRepository = new AddressRepository(knex, "addresses");
+    this.addressRepository.getAll().then((value) => {
+      this.treeModel = new Tree(value);
+    });
+  }
 
-	getArrayJson() {
-		return this.treeModel.getArrayJson()
-	}
- 
-	create(item: Address) {
-		return this.addressRepository.create(item)
-	}
+  getAll() {
+    return this.treeModel.getJson();
+  }
 
-	getNodeById(id: string) {
-		return this.treeModel.getNodeById(id)
-	}
+  getArrayJson() {
+    return this.treeModel.getArrayJson();
+  }
 
-	isExist(id: string) {
-		return this.treeModel.isExist(id);
-	}
+  async create(item: Address) {
+    const addr = await this.addressRepository.create(item);
+    this.addressRepository.getAll().then((value) => {
+      this.treeModel = new Tree(value);
+    });
+    return addr;
+  }
 
-	getManyNodeByIds(ids: string[]) {
-		
-		const nodes: any[] = [];
-		
-		ids?.map((id) => {
-			nodes.push(this.treeModel.getNodeById(id))
-		})
-		return nodes; 
-	}
+  getNodeById(id: string) {
+    return this.treeModel.getNodeById(id);
+  }
 
-	getPathById(id:string) {
-		return this.treeModel.getPathById(id, this.treeModel.getJson())
-	}
+  isExist(id: string) {
+    return this.treeModel.isExist(id);
+  }
 
-	getPathByTitle(title: string) {
-		return this.treeModel.getPathByTitle(title, this.treeModel.getJson());
-	}
+  getManyNodeByIds(ids: string[]) {
+    const nodes: any[] = [];
 
-	getPath(node: any) {
-		return this.treeModel.getPath()
-	}
+    ids?.map((id) => {
+      nodes.push(this.treeModel.getNodeById(id));
+    });
+    return nodes;
+  }
 
-	async saveChange(addressTree: any) {
-		// addressTree = (addressTree as any[]).map(({expanded ,...attr}) => attr)
-		this.treeModel = new Tree(addressTree); 
-		let arrayJson = (this.getArrayJson() as any[]).map(({expanded ,...attr}) => attr)
-		
-		await knex('addresses').del();
-		const response = await knex("addresses").insert(arrayJson)
-		return response; 
-	}
+  getPathById(id: string) {
+    return this.treeModel.getPathById(id, this.treeModel.getJson());
+  }
+
+  getPathByTitle(title: string) {
+    return this.treeModel.getPathByTitle(title, this.treeModel.getJson());
+  }
+
+  getPath(node: any) {
+    return this.treeModel.getPath();
+  }
+
+  async saveChange(addressTree: any) {
+    // addressTree = (addressTree as any[]).map(({expanded ,...attr}) => attr)
+    this.treeModel = new Tree(addressTree);
+    let arrayJson = (this.getArrayJson() as any[]).map(
+      ({ expanded, ...attr }) => attr
+    );
+
+    await knex("addresses").del();
+    const response = await knex("addresses").insert(arrayJson);
+    return response;
+  }
 }
