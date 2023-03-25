@@ -25,6 +25,7 @@ import routeSlot from './api/modules/Slot/slot.route';
 import routeCarInfo from './api/modules/CarInfo/carInfo.route';
 import routeCustomer from './api/modules/Custommer/customer.route';
 import routeCarDetail from './api/modules/CarDetail/carDetail.route';
+import routePromotionDetail from './api/modules/PromotionDetail/promotionDetail.route';
 
 
 // import expressLayouts from 'express-ejs-layouts';
@@ -63,6 +64,7 @@ const app = express();
   app.use('/slot', routeSlot)
   app.use('/car-info', routeCarInfo)
   app.use('/car-detail', routeCarDetail)
+  app.use('/promotion-detail', routePromotionDetail)
 
   renderControl('staffs')
 

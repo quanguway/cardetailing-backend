@@ -6,7 +6,9 @@ export interface BookingDetail {
     unit_exchange_id?: string
     price_id?: string;
     staff_id?:string;
-    note?: string 
+    note?: string ;
+    price_final?: number;
+    product_recived_title?: string; 
     date_created?: Date
     date_updated?: Date
     user_created?: Date

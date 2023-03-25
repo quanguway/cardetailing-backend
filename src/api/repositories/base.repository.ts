@@ -60,7 +60,7 @@ export abstract class BaseRepository<T> implements Reader<T>, Writer<T> {
    */
   findById(id: string | Partial<T> | undefined): Promise<T> {
       if (!id) {
-        return this.queryBuilder.where("").first().select();;
+        return this.queryBuilder.where("").first().select();
       }
       return typeof id === 'string' ?
        this.queryBuilder.where({id: id}).first().select() :

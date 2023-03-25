@@ -11,6 +11,8 @@ export async function up(knex: Knex): Promise<void> {
     table.double('maximum_reduction_amount');
     table.double('reduction_amount_total');
     table.double('minimum_total');
+    table.timestamp('start_date').notNullable()
+    table.timestamp('end_date').notNullable()
     table.uuid('promotion_line_id').references('id').inTable('promotion_lines').onUpdate('CASCADE').onDelete('CASCADE');
     table.uuid('product_received_id').references('id').inTable('products').onUpdate('CASCADE').onDelete('CASCADE');
     table.uuid('product_buy_id').references('id').inTable('products').onUpdate('CASCADE').onDelete('CASCADE');

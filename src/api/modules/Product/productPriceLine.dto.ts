@@ -14,8 +14,12 @@ export class ProductDTO{
   category_paths: String;
   category_path_ids: string[];
   price_line: any;
+  price_final?: any;
+  product_recived?: any;
   
-    constructor(data: any, categoryPathIds: string[], categoryPath: string, priceLine: any) {
+
+  
+    constructor(data: any, categoryPathIds: string[], categoryPath: string, priceLine: any, priceFinal: string, productRecived:string) {
       this.id = data.id;
       this.product_code = data.product_code;
       this.title = data.title;
@@ -28,5 +32,7 @@ export class ProductDTO{
       this.status = data.status;
       this.category_path_ids = categoryPathIds
       this.price_line = priceLine;
+      this.price_final = priceFinal;
+      this.product_recived = productRecived;
     }
   }

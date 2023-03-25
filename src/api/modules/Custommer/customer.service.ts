@@ -17,22 +17,31 @@ export class CustomerService {
     }
 
     async getAll() {
-        const response = await this.customerRepository.getAll();
-        const staffs: any = []
-        for(const element of response) {
-            const address = this.addressService.getNodeById(element.address_id as string);
-            const addressPathTitles = this.addressService.getPathByTitle(address.title);
-            const addressPaths = this.addressService.getPathById(element.address_id as string)
+        try {
             
-            const addressPathsCustom = addressPaths;
-            const addressPathTitlesCustom = addressPathTitles.slice(addressPathTitles.indexOf('/') + 1);
+            const response = await this.customerRepository.getAll();
+            const staffs: any = []
+            for(const element of response) {
+                const address = this.addressService.getNodeById(element.address_id as string);
+                const addressPathTitles = this.addressService.getPathByTitle(address.title);
+                
+                if (! addressPathTitles) continue;
+                
+                const addressPaths = this.addressService.getPathById(element.address_id as string)
+                
+                const addressPathsCustom = addressPaths;
+                const addressPathTitlesCustom = addressPathTitles.slice(addressPathTitles.indexOf('/') + 1);
+                
+                const role = await this.roleService.findById(element.role_id);
+                const dto = new CustomerDTO(element, role, addressPathsCustom.split('.'), addressPathTitlesCustom);
+                staffs.push({...dto});
+            }
             
-            const role = await this.roleService.findById(element.role_id);
-            const dto = new CustomerDTO(element, role, addressPathsCustom.split('.'), addressPathTitlesCustom);
-            staffs.push({...dto});
+            return staffs;  
+        } catch (error) {
+            console.log(error);
+            
         }
-        
-        return staffs;  
     }
 
     async findFirst(item: Customer) {

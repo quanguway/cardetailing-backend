@@ -6,7 +6,8 @@ export interface PromotionDetail {
   percent?: number;
   reduction_amount?: number;
   maximum_reduction_amount?: number;
-  quality_product?: number
+  quality_product?: number;
+  product_buy_id?: string;
   promotion_line_id?: string;
   product_received_id?: string;
 }
