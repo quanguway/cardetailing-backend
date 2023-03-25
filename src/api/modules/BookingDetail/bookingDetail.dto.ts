@@ -14,12 +14,14 @@ export class BookingDetailDTO{
     price?: PriceLine
     note?: string 
     staff?: Staff
+    price_final?: any;
+    product_recived_title?:any;
     date_created?: Date
     date_updated?: Date
     user_created?: Date
     user_updated?: Date
   
-    constructor(data: any, product: Product, price: PriceLine, unit_exchange:UnitExchange, staff: Staff) {
+    constructor(data: any, product: Product, price: PriceLine, unit_exchange:UnitExchange, staff: Staff, priceFinal: any, productRecived:any) {
         this.id = data.id;
         this.status = data.status;
         this.booking_id = data.booking_id;
@@ -29,6 +31,8 @@ export class BookingDetailDTO{
         this.product  = product;
         this.price = price;
         this.staff = staff;
+        this.price_final = priceFinal;
+        this.product_recived_title = productRecived?.title ?? '';
         this.date_created  = data.date_created;
         this.date_updated  = data.date_updated;
         this.user_created  = data.user_created;

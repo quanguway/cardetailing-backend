@@ -3,6 +3,8 @@ import { BookingDetail } from "../BookingDetail/bookingDetail";
 import { BookingDetailService } from "../BookingDetail/bookingDetail.service";
 import { CarDetailService } from "../CarDetail/carDetail.service";
 import { CustomerService } from "../Custommer/customer.service";
+import { ProductRepository } from "../Product/product.repository";
+import { PromotionDetailRepository } from "../PromotionDetail/promotionDetail.repository";
 import { SlotService } from "../Slot/slot.service";
 import { StaffService } from "../Staff/staff.service";
 import { Booking } from "./booking";
@@ -16,6 +18,8 @@ export class BookingService {
     private readonly carDetailservice;
     private readonly staffService;
     private readonly slotService;
+    private readonly promotionDetailRepository;
+    private readonly productRepository;
 
     constructor() {
         this.bookingRepository = new BookingRepository(knex, 'booking');
@@ -24,6 +28,8 @@ export class BookingService {
         this.staffService = new StaffService();
         this.carDetailservice = new CarDetailService();
         this.slotService = new SlotService();
+        this.promotionDetailRepository = new PromotionDetailRepository(knex, `promotion_details`);
+        this.productRepository = new ProductRepository(knex, `products`);
     }
 
     // async getAll() {
@@ -45,10 +51,7 @@ export class BookingService {
         
         const bookDetails = await this.bookingDetailService.find({booking_id: book.id});
         const carDetail = await this.carDetailservice.find({id: book.car_detail_id});
-        console.log(book);
-        
-        console.log(carDetail);
-        
+
         
         const dto = new BookingDTO(book, customer, bookDetails as BookingDetail[], carDetail[0]);
 

@@ -21,6 +21,19 @@ export class PromotionDetailService {
         return await this.promotionDetailRepository.findFirst(item);
     }
 
+    async findByFinalPrice(finalPrice: any) {
+        try {
+            
+            return await knex('promotion_details')
+                .where('minimum_total', '<' ,finalPrice)
+                .andWhere('minimum_total', '!=', 0)
+                .select();
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+
     async find(item: PromotionDetail) {
         const response = await this.promotionDetailRepository.find(item);
         const data = []

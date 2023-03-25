@@ -1,6 +1,7 @@
 import knex from "../../../database/knex";
 import { PriceLineService } from "../PriceLine/priceLine.service";
 import { ProductCategoryService } from "../ProductCategory/productCategory.service";
+import { PromotionDetailRepository } from "../PromotionDetail/promotionDetail.repository";
 import { RoleService } from "../Role/role.service";
 import { Product } from "./product";
 import { ProductDTO } from "./product.dto";
@@ -10,11 +11,13 @@ export class ProductService {
     private readonly productRepository;
     private readonly productCategoryService;
     private readonly priceLineService;
+    private readonly promotionDetailRepository;
 
     constructor() {
         this.productRepository = new ProductRepository(knex, 'products');
         this.productCategoryService = new ProductCategoryService();
         this.priceLineService = new PriceLineService();
+        this.promotionDetailRepository = new PromotionDetailRepository(knex, 'promotion_details');
     }
 
 
@@ -31,6 +34,7 @@ export class ProductService {
             const productCategoryPathTitlesCustom = productCategoryPathTitles.slice(productCategoryPathTitles.indexOf('/') + 1);
 
             const priceLine = await this.priceLineService.findFirst({product_id: element.id as string});
+            
             
 
             const productDTO = new ProductDTO(element, productCategoryPathsCustom.split('.'), productCategoryPathTitlesCustom, priceLine);
@@ -59,9 +63,29 @@ export class ProductService {
             
             const productCategoryPathsCustom = productCategoryPaths;
             const productCategoryPathTitlesCustom = productCategoryPathTitles.slice(productCategoryPathTitles.indexOf('/') + 1);
-        
-            const productDTO = new ProductDTO(product, productCategoryPathsCustom.split('.'), productCategoryPathTitlesCustom, element);
+         
+            const promotionDetail = await knex('promotion_details')
+            .where('product_buy_id', product.id)
+            .andWhere('start_date' , '<', new Date())
+            .andWhere('end_date', '>', new Date())
+            .first();
+            // .andWhere('is_active', true);
 
+            console.log(promotionDetail);
+            
+
+
+            const reductioAmount = promotionDetail?.reduction_amount ?? 0;
+            const percent = (promotionDetail?.percent ?? 0)/100
+            const priceFinal = element.price - reductioAmount - element.price*(percent);
+
+            const productRecived = ! promotionDetail ? null :  await this.productRepository.findFirst({id: promotionDetail.product_received_id});
+
+            const productDTO = new ProductDTO(product, productCategoryPathsCustom.split('.'), productCategoryPathTitlesCustom, element, priceFinal, productRecived);
+
+
+            console.log(promotionDetail);
+            
             
             products.push({...productDTO});
         }

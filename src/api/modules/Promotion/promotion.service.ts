@@ -57,13 +57,14 @@ export class PromotionService {
                 promotion_id: params.promotion.id
             })) 
             
-
             const promotionDetail = params.promotionDetail.map((item:any) => ({
                 percent: ! item.percent ? 0 : item.percent,
                 reduction_amount: ! item.reduction_amount ? 0 : item.reduction_amount,
                 promotion_line_id: item.id,
                 product_received_id: item.product_received_id,
                 product_buy_id: item.product_buy_id,
+                start_date: item.start_date,
+                end_date: item.end_date,
                 quantity_product_buy: item.quantity_product_buy ?? 0,
                 minimum_total: item.minimum_total ?? 0,
             }))
