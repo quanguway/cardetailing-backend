@@ -9,6 +9,7 @@ export async function up(knex: Knex): Promise<void> {
     table.double('percent').defaultTo(0);
     table.double('reduction_amount').defaultTo(0);
     table.double('maximum_reduction_amount');
+    table.double('reduction_amount_total');
     table.double('minimum_total');
     table.uuid('promotion_line_id').references('id').inTable('promotion_lines').onUpdate('CASCADE').onDelete('CASCADE');
     table.uuid('product_received_id').references('id').inTable('products').onUpdate('CASCADE').onDelete('CASCADE');
