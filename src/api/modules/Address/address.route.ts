@@ -28,9 +28,6 @@ routeAddress.get('/id', async(req: Request, res: Response) => {
 
 routeAddress.get('/ids', async(req: Request, res: Response) => {
     const {ids} = req.query;
-    console.log(ids);
-    
-    console.log(addressService.getManyNodeByIds(ids as string[]));
     
     res.json(await addressService.getManyNodeByIds(ids as string[]))
 }); 
