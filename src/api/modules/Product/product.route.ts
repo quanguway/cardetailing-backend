@@ -41,6 +41,14 @@ routeProduct.delete('/', async (req: Request, res: Response, next: NextFunction)
 	res.json(await productService.delete(id))
 })
 
+routeProduct.get('/duplicate-code',async (req: Request, res: Response, next: NextFunction) => {
+	const {code} = req.query;
+	const response = await productService.existByCode(code as string);
+	res.json({
+		'is_duplicate': response
+	})
+})
+
 // routeProduct.get('/update', async (req: Request, res: Response, next: NextFunction) => {
 	
 // })
