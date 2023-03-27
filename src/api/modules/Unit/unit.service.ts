@@ -29,6 +29,10 @@ export class UnitService {
         return units; 
     }
 
+    async existByCode(code: string) {
+        return this.unitRepository.exist({unit_code: code})
+    }
+
     async getUnitOfProduct(product_id: string) {
         return this.unitRepository.getUnitOfProduct(product_id)
     }

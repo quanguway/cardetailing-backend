@@ -85,4 +85,11 @@ export abstract class BaseRepository<T> implements Reader<T>, Writer<T> {
     .where('id', id)
     .del()
   }
+  async exist(item: Partial<T>): Promise<boolean> {
+    const itemCheck = await this.queryBuilder
+      .where(item)
+      .first()
+      .select().then() 
+      return ! itemCheck ? false : true;
+  }
 }
