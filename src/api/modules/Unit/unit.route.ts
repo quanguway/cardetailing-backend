@@ -22,6 +22,14 @@ routeUnit.post('/update', async (req: Request, res: Response, next: NextFunction
 	res.json(response);
 })
 
+routeUnit.get('/duplicate-code',async (req: Request, res: Response, next: NextFunction) => {
+	const {code} = req.query;
+	const response = await unitService.existByCode(code as string);
+	res.json({
+		'is_duplicate': response
+	})
+})
+
 routeUnit.get('/product', async (req: Request, res: Response, next: NextFunction) => {
 	
 	const {product_id} = req.query;

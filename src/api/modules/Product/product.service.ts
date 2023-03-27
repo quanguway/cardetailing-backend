@@ -45,6 +45,10 @@ export class ProductService {
         return products;
     }
 
+    async existByCode(code: string) {
+        return this.productRepository.exist({product_code: code})
+    }
+
     async getAll() {
 
         const priceLines = await knex('price_lines')

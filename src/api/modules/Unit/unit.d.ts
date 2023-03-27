@@ -7,6 +7,7 @@ export interface Unit {
 	end_date?: Date;
 	status?: boolean
 	note?: string;
+	unit_code?:string;
 	date_created?: Date;
 	date_updated?: Date;
 	staff_created?: Date;
