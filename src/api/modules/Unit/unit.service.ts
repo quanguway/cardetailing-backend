@@ -8,45 +8,64 @@ import { UnitDTO } from "./unit.dto";
 import { UnitRepository } from "./unit.repository";
 
 export class UnitService {
-    private readonly unitRepository;
-    private readonly unitExchangeService;
+  private readonly unitRepository;
+  private readonly unitExchangeService;
 
-    constructor() {
-        this.unitRepository = new UnitRepository(knex, 'units');
-        this.unitExchangeService = new UnitExchangeService();
+  constructor() {
+    this.unitRepository = new UnitRepository(knex, "units");
+    this.unitExchangeService = new UnitExchangeService();
+  }
+
+  async getAll() {
+    const response = await this.unitRepository.getAll();
+    const units: any = [];
+    for (const element of response) {
+      const getAllUnitWchangeByUnit = await this.unitExchangeService.find({
+        unit_id: element.id,
+      });
+      const unitDTO = new UnitDTO(element, getAllUnitWchangeByUnit);
+      units.push({ ...unitDTO });
     }
 
-    async getAll() {
-        const response = await this.unitRepository.getAll();
-        const units: any = []
-        for(const element of response) {
-            const getAllUnitWchangeByUnit = await this.unitExchangeService.find({unit_id: element.id})
-            const unitDTO = new UnitDTO(element, getAllUnitWchangeByUnit)
-            units.push({...unitDTO})
-        }
+    return units;
+  }
 
-        
-        return units; 
-    }
+  async existByCode(code: string) {
+    return this.unitRepository.exist({ unit_code: code });
+  }
 
-    async existByCode(code: string) {
-        return this.unitRepository.exist({unit_code: code})
-    }
+  async getUnitOfProduct(product_id: string) {
+    return this.unitRepository.getUnitOfProduct(product_id);
+  }
 
-    async getUnitOfProduct(product_id: string) {
-        return this.unitRepository.getUnitOfProduct(product_id)
-    }
+  async findFirst(item: Unit) {
+    return await this.unitRepository.findFirst(item);
+  }
 
-    async findFirst(item: Unit) {
-        return await this.unitRepository.findFirst(item);
+  async update(id: string, item: any) {
+    try {
+      console.log(item);
+      const response = await this.unitRepository.update(id, item);
+      return { status: "SUCCESS", data: response };
+    } catch (error) {
+      console.log(error);
+      return { status: "FAIL" };
     }
+  }
 
-    async update (id:string, item: Unit) {
-        return await this,this.unitRepository.update(id, item)
-    }
+  async delete(id: string) {
+    const response = await this.unitRepository.delete(id);
+    return response;
+  }
+  async create(item: any) {
+    try {
+      console.log(item);
+      const response = await this.unitRepository.create(item);
+      return { status: "SUCCESS", data: response };
+    } catch (error) {
+      console.log(error);
 
-    async delete(id: string) {
-        const response = await this.unitRepository.delete(id);
-        return response;  
+      return { status: "FAIL" };
     }
+  }
 }

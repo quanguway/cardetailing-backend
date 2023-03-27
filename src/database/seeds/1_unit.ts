@@ -23,7 +23,8 @@ export async function seed(knex: Knex): Promise<void> {
       //     staff_created: faker.date.past(),
       // },
       {
-        title: "lượt",
+        title: "Lượt",
+        unit_code: "LUOT",
         description: "Không có mô tả",
         date_created: faker.date.past(),
         date_updated: faker.date.past(),
