@@ -95,11 +95,51 @@ export class PromotionService {
     return response;
   }
 
+  async getPromotionCanUse(type: String) {
+    const date = new Date().toISOString().slice(0, 10);
 
-  async checkPromotionOrder(id: string) {
-    const booking = await this.bookingService.findFirst({id:id});
+    const response =
+      await knex.raw(`SELECT lin.* , pro.status as proStatus FROM promotion_lines as lin join promotions as pro on lin.promotion_id = pro.id
+                                where lin.start_date <= Now() 
+                                  and lin.end_date >= now() 
+                                  and lin.status = 1 
+                                  and pro.status = 1
+                                  and lin.type Like '${type}%'`);
 
-    console.log(booking);
-    return {status: 'SUCCESS', booking : booking};
+    return response;
+  }
+
+  async checkPromotionOrder(id: string, total: number) {
+    if (!total) return;
+    const booking = await this.bookingService.findFirst({ id: id });
+    const promotion = await this.getPromotionCanUse("CONDITION_PRICE");
+    var proCanUse = {
+      soTienGiam: 0,
+      promotionLine: {},
+    };
+    promotion[0].map((item: any) => {
+      if (item.minimum_total <= total) {
+        var soTienGiam = 0;
+        if (item.type === "CONDITION_PRICE/PERCENT") {
+          soTienGiam =
+            total * (item.percent / 100) <= item.maximum_reduction_amount
+              ? total * (item.percent / 100)
+              : item.maximum_reduction_amount;
+        } else {
+          soTienGiam = item.maximum_reduction_amount;
+        }
+
+        if (proCanUse.soTienGiam <= soTienGiam) {
+          proCanUse = {
+            soTienGiam: soTienGiam,
+            promotionLine: item,
+          };
+        }
+      }
+    });
+    return {
+      status: "SUCCESS",
+      promotion_can_use: proCanUse,
+    };
   }
 }
