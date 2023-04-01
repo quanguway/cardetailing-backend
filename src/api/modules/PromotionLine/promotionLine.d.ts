@@ -1,17 +1,25 @@
 export interface PromotionLine {
   id?: string;
-  promotion_code?: string
-  type?: 'GET_PRODUCT' | 'PRICE' | 'PERCENT'
+  promotion_code?: string;
+  title?: string;
+  type?: string;
+  status?: boolean;
+
+  maximum_reduction_amount?: number;
+  product_received_id?: string;
+  product_buy_id?: string;
+  quantity_product_buy?: number;
+  quantity_product_received?: number;
+  minimum_total?: number;
+  percent?: number;
+  total_budget?: number;
+  max_customer?: number;
   start_date?: Date;
   end_date?: Date;
-  status?: boolean
-  max_quantity?: number
-  max_quantity_per_customer?: number
-  max_quantity_per_customer_per_day?: number
-  promotion_id?: string
-  title?: string
-  description?: string;
+
   note?: string;
+  promotion_id?: string;
+  description?: string;
   date_created?: Date;
   date_updated?: Date;
   staff_created?: Date;
