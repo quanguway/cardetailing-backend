@@ -15,17 +15,19 @@ import { BookingRepository } from "./booking.repository";
 export class BookingService {
   private readonly bookingRepository;
   private readonly bookingDetailService;
-  private readonly customerService;
+  private readonly customerRepository;
   private readonly carDetailservice;
   private readonly staffService;
   private readonly slotService;
+  private readonly customerService;
   private readonly promotionDetailRepository;
   private readonly productRepository;
 
   constructor() {
     this.bookingRepository = new BookingRepository(knex, "booking");
     this.bookingDetailService = new BookingDetailService();
-    this.customerService = new CustomerRepository(knex, "customers");
+    this.customerRepository = new CustomerRepository(knex, "customers");
+    this.customerService = new CustomerService();
     this.staffService = new StaffService();
     this.carDetailservice = new CarDetailService();
     this.slotService = new SlotService();
@@ -41,7 +43,7 @@ export class BookingService {
   //     const array: any = []
   //     for(const element of response) {
   //         const bookingDetails = await this.bookingDetailService.find({booking_id: element.id})
-  //         const customer = await this.customerService.findFirst({id: element.customer_id})
+  //         const customer = await this.customerRepository.findFirst({id: element.customer_id})
   //         const dto = new BookingDTO(element, customer, bookingDetails as BookingDetail[]);
   //         array.push({...dto})
   //     }
@@ -50,7 +52,7 @@ export class BookingService {
 
   async findFirst(item: Booking) {
     const book = await this.bookingRepository.findFirst(item);
-    const customer = await this.customerService.findFirst({
+    const customer = await this.customerRepository.findFirst({
       id: book.customer_id,
     });
 
@@ -77,6 +79,7 @@ export class BookingService {
 
   async create(item: any) {
     if (item.isNewCustomer) {
+      //const add = await this.a
       const customer = await this.customerService.create(item.customer);
     }
     if (item.isNewCar) {
