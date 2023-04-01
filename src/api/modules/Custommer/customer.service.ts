@@ -58,10 +58,10 @@ export class CustomerService {
         customer.address_id as string
       );
       const addressPathTitles = this.addressService.getPathByTitle(
-        address.title
+        address?.title ?? null
       );
       const addressPaths = this.addressService.getPathById(
-        customer.address_id as string
+        customer?.address_id as string ?? null
       );
       const addressPathsCustom = addressPaths;
       const addressPathTitlesCustom = addressPathTitles.slice(

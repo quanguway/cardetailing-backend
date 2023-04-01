@@ -13,6 +13,7 @@ export class BookingDetailDTO{
     unit_exchange?: UnitExchange
     price?: PriceLine
     note?: string 
+    type?: string
     staff?: Staff
     price_final?: any;
     product_recived_title?:any;
@@ -27,9 +28,10 @@ export class BookingDetailDTO{
         this.booking_id = data.booking_id;
         this.unit_exchange = unit_exchange
         this.price = data.is_active
-        this.note = data.note
+        this.note = data.note    
+        this.type = data.type
         this.product  = product;
-        this.price = price;
+        this.price = price;   
         this.staff = staff;
         this.price_final = priceFinal;
         this.product_recived_title = productRecived?.title ?? '';
