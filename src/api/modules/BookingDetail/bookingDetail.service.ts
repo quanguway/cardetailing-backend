@@ -37,6 +37,7 @@ export class BookingDetailService {
     return response;
   }
 
+
   async findFirst(item: BookingDetail) {
     return await this.BookingDetailRepository.findFirst(item);
   }

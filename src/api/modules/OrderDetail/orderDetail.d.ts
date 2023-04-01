@@ -6,7 +6,7 @@ export interface OrderDetail {
     total?: number
     product_id?: string
     order_id?: string
-    price_id?: string
+    price_line_id?: string
     unit_exchange_id?: string
     unit_id?: string
     date_created?: Date

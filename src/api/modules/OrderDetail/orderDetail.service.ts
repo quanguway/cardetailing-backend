@@ -4,7 +4,7 @@ import { BookingDetail } from "../BookingDetail/bookingDetail";
 import { PriceLineService } from "../PriceLine/priceLine.service";
 import { ProductService } from "../Product/product.service";
 import { UnitExchangeService } from "../UnitExchange/unitExchange.service";
-import { BookingDetailDTO } from "./bookingDetail.dto";
+import { OrderDetailDTO } from "./orderDetail.dto";
 import { OrderDetail } from "./orderDetail";
 import { OrderDetailRepository } from "./orderDetail.repository";
 
@@ -25,23 +25,25 @@ export class OrderDetailService {
         return response; 
     }
 
-    async findFirst(item: BookingDetail) {
+    async findFirst(item: OrderDetail) {
         return await this.orderDetailRepository.findFirst(item);
     }
 
-    async find(item: BookingDetail) {
+    async find(item: OrderDetail) {
         const response = await this.orderDetailRepository.find(item);
         const array = []
         for (const element of response) {
             const product = await this.productService.findFirst({id: element.product_id})
-            const priceLine = await this.priceLineService.findFirst({id: element.price_id})
-            const unit_exchange = await this.unitExchangeService.findFirst({id: element.unit_exchange_id})
+            console.log(element)
+            
+            const priceLine = await this.priceLineService.findFirst({id: element.price_line_id})
+            // const unit_exchange = await this.unitExchangeService.findFirst({id: element.unit_exchange_id})
             
 
-            const bookingDetailDTO = new BookingDetailDTO(element, product, priceLine, unit_exchange)
-            array.push({...bookingDetailDTO})
+            const dto = new OrderDetailDTO(element, product, priceLine)
+            array.push({...dto})
         }  
-        return array
+        return array 
     }
 
     async update(id:string,item: BookingDetail) {
