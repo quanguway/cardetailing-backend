@@ -1,5 +1,5 @@
 export const addressData = [
-    { "id": "44ff0bce-09b8-4af2-807e-79eba34ae411", "level": 0, "title": "Việt Nam",},
+{ "id": "44ff0bce-09b8-4af2-807e-79eba34ae411", "level": 0, "title": "Việt Nam",},
 { "id": "f82536bb-5ca2-493a-8ec7-1a35e6c0082f", "level": 1, "title": "An Giang", "parent_id": "44ff0bce-09b8-4af2-807e-79eba34ae411", },
 { "id": "2fcfa775-93af-4483-ada7-22c1da4084d6", "level": 2, "title": "Thành phố Long Xuyên", "parent_id": "f82536bb-5ca2-493a-8ec7-1a35e6c0082f", },
 { "id": "b78a84cd-d85f-4b0a-80f9-5187f4ea767b", "level": 3, "title": "Phường Mỹ Bình", "parent_id": "2fcfa775-93af-4483-ada7-22c1da4084d6", },
