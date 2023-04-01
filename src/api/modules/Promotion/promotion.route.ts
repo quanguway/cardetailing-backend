@@ -47,8 +47,10 @@ routePromotion.get(
 routePromotion.get(
   "/check-promotion-order",
   async (req: Request, res: Response, next: NextFunction) => {
-    const { id } = req.query;
-    res.json(await promotiomService.checkPromotionOrder(id as string));
+    const { id, total } = req.query;
+    res.json(
+      await promotiomService.checkPromotionOrder(id as string, Number(total))
+    );
   }
 );
 
