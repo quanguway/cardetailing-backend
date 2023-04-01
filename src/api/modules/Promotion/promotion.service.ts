@@ -49,6 +49,7 @@ export class PromotionService {
     return await this.promtionRepository.findFirst(item);
   }
 
+
   async create(params: any) {
     try {
       await this.promtionRepository.create(params.promotion);
@@ -82,8 +83,8 @@ export class PromotionService {
         staff_created: item.staff_created,
         staff_updated: item.staff_updated,
       }));
-
-      await this.promotionLineRepository.createMany(promotionLine);
+ 
+      return await this.promotionLineRepository.createMany(promotionLine);
       //   await this.promotionDetailRepository.createMany(promotionDetail);
     } catch (error) {
       console.log(error);
