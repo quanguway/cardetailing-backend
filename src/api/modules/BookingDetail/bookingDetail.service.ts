@@ -45,23 +45,24 @@ export class BookingDetailService {
         for (const element of response) {
             const product = await this.productService.findFirst({id: element.product_id})
             const priceLine = await this.priceLineService.findFirst({id: element.price_id})
-            const unit_exchange = await this.unitChangeService.findFirst({id: element.unit_exchange_id})
+            // const unit_exchange = await this.unitChangeService.findFirst({id: element.unit_exchange_id})
             const staff = await this.staffService.findFirst({id: element.staff_id});
 
-            const promotionDetail = await knex('promotion_details')
-                .where('product_buy_id', product.id)
-                .andWhere('start_date' , '<', new Date())
-                .andWhere('end_date', '>', new Date())
-                .first()
+            // const promotionDetail = await knex('promotion_details')
+            //     .where('product_buy_id', product.id)
+            //     .andWhere('start_date' , '<', new Date())
+            //     .andWhere('end_date', '>', new Date())
+            //     .first()
     
-            const reductioAmount = promotionDetail?.reduction_amount ?? 0;
-            const percent = (promotionDetail?.percent ?? 0)/100
-            const price = priceLine.price ?? 0
-            const priceFinal = price - reductioAmount - price*(percent);
+            // const reductioAmount = promotionDetail?.reduction_amount ?? 0;
+            // const percent = (promotionDetail?.percent ?? 0)/100
+            // const price = priceLine.price ?? 0
+            // const priceFinal = price - reductioAmount - price*(percent); 
     
-            const product_recived = ! promotionDetail ? null :  (await this.productService.findFirst({id: promotionDetail.product_received_id}));
-
-            const bookingDetailDTO = new BookingDetailDTO(element, product, priceLine, unit_exchange, staff, priceFinal, product_recived)
+            // const product_recived = ! promotionDetail ? null :  (await this.productService.findFirst({id: promotionDetail.product_received_id}));
+            console.log('dasd');
+            
+            const bookingDetailDTO = new BookingDetailDTO(element, product, priceLine, staff)
             array.push({...bookingDetailDTO})
         }  
         return array

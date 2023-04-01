@@ -21,18 +21,18 @@ export class BookingDetailDTO{
     user_created?: Date
     user_updated?: Date
   
-    constructor(data: any, product: Product, price: PriceLine, unit_exchange:UnitExchange, staff: Staff, priceFinal: any, productRecived:any) {
+    constructor(data: any, product: Product, price: PriceLine, staff: Staff) {
         this.id = data.id;
         this.status = data.status;
         this.booking_id = data.booking_id;
-        this.unit_exchange = unit_exchange
+        // this.unit_exchange = unit_exchange
         this.price = data.is_active
         this.note = data.note
         this.product  = product;
         this.price = price;
         this.staff = staff;
-        this.price_final = priceFinal;
-        this.product_recived_title = productRecived?.title ?? '';
+        // this.price_final = priceFinal;
+        // this.product_recived_title = productRecived?.title ?? '';
         this.date_created  = data.date_created;
         this.date_updated  = data.date_updated;
         this.user_created  = data.user_created;

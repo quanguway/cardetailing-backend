@@ -1,35 +1,46 @@
 import knex from "../../../database/knex";
 import { Address } from "../Address/address";
 import { AddressService } from "../Address/address.service";
+import { Customer } from "../Custommer/customer";
+import { CustomerRepository } from "../Custommer/customer.repository";
 import { CustomerService } from "../Custommer/customer.service";
-import { OrderDetailRepository } from "../OrderDetail/orderDetail.repository";
+import { OrderDetailDTO } from "../OrderDetail/orderDetail.dto";
 import { OrderDetailService } from "../OrderDetail/orderDetail.service";
 import { RoleService } from "../Role/role.service";
 import { SlotService } from "../Slot/slot.service";
 import { Order } from "./order";
+import { OrderDTO } from "./order.dto";
 import { OrderRepository } from "./order.repository";
 
 export class OrderService {
     private readonly orderRepository;
     private readonly slotService;
-    private readonly orderDetailRepository;
+    private readonly orderDetailService;
     private readonly customerService;
+    private readonly customerRepository;
 
     constructor() {
         this.orderRepository = new OrderRepository(knex, 'orders');
         this.slotService = new SlotService();
-        this.orderDetailRepository = new OrderDetailService();
+        this.orderDetailService = new OrderDetailService();
         this.customerService = new CustomerService();
+        this.customerRepository = new CustomerRepository(knex, 'customers')
     }
 
     async getAll() {
         const response = await this.orderRepository.getAll();
+
+ 
+        const arr = [];
         for(const element of response) {
-            // const orderDetails = await this.orderDetailRepository.find({order_id: element.id});
-            const customer = await this.customerService.findFirst({id: element.customer_id});
+            const orderDetails = await this.orderDetailService.find({order_id: element.id});
+            console.log(orderDetails);
             
+            const customer = await this.customerRepository.findFirst({id: element.customer_id});
+            const dto = new OrderDTO(element, orderDetails, customer as Customer);
+            arr.push({...dto});
         }
-        return response; 
+        return arr; 
     }
 
     async findFirst(item: Order) {
@@ -45,7 +56,8 @@ export class OrderService {
         try {
             await knex.transaction(async (trx: any) => {
                  
-
+                console.log(order);
+                
                 const reponse = await knex('orders').insert(order).transacting(trx); 
                 const orderDetailCustom = order_details.map(({...element }) => {return {...element,type:'SERVICE' , status: 'SERVICE', order_id: order.id}});
                 const orderDetailIds = await knex('order_details').insert(orderDetailCustom).transacting(trx);

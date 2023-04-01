@@ -97,7 +97,9 @@ export class PromotionService {
   }
 
   async getPromotionCanUse(type: String) {
-    const date = new Date().toISOString().slice(0, 10);
+    // const date = new Date().toISOString().slice(0, 10);
+    // console.log(Date.now().toString());
+    
 
     const response =
       await knex.raw(`SELECT lin.* , pro.status as proStatus FROM promotion_lines as lin join promotions as pro on lin.promotion_id = pro.id
@@ -118,6 +120,7 @@ export class PromotionService {
       soTienGiam: 0,
       promotionLine: {},
     };
+    console.log(promotion[0])
     promotion[0].map((item: any) => {
       if (item.minimum_total <= total) {
         var soTienGiam = 0;
