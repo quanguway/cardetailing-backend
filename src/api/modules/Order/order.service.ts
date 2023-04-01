@@ -44,7 +44,7 @@ export class OrderService {
     async create(order: any, order_details: any[]) {
         try {
             await knex.transaction(async (trx: any) => {
-                
+                 
 
                 const reponse = await knex('orders').insert(order).transacting(trx); 
                 const orderDetailCustom = order_details.map(({...element }) => {return {...element,type:'SERVICE' , status: 'SERVICE', order_id: order.id}});
@@ -68,7 +68,7 @@ export class OrderService {
                 await this.slotService.update(slot_id, {is_empty: true});
                 
             })
-          } catch (error) {  
+          } catch (error) {   
             console.error(error);
           }
     }

@@ -26,7 +26,7 @@ routePromotion.post(
   "/create",
   async (req: Request, res: Response, next: NextFunction) => {
     const param = req.body;
-    promotiomService.create(param);
+    res.json(await promotiomService.create(param));
   }
 );
 
