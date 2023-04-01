@@ -4,6 +4,7 @@ export async function up(knex: Knex): Promise<void> {
 	await knex.schema.createTable('booking_details', (table) => {
     table.uuid('id').primary().defaultTo(knex.raw('(UUID())'));
     table.string('status')
+    table.string('type');
     table.text('note').nullable();
     table.uuid('booking_id').references('id').inTable('booking').onUpdate('CASCADE').onDelete('CASCADE');
     table.uuid('product_id').references('id').inTable('products').onUpdate('CASCADE').onDelete('CASCADE');

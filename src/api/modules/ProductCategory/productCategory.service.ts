@@ -10,10 +10,9 @@ export class ProductCategoryService {
 	private treeModel: any;
 	constructor() { 
 		this.productCategoryRepository = new ProductCategoryRepository(knex, 'product_categories')
-		this.productCategoryRepository.getAll().then((value) => {
+		this.productCategoryRepository.getAll().then((value) => {		
 			this.treeModel = new Tree(value);
 		})
-		// this.treeModel = new Tree([]);
 	}    
  
 	getAllTree() {

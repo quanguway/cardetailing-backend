@@ -18,6 +18,10 @@ export class Tree {
             customID: 'id'
           }) as NodeModel[];
          this.treeModel = new TreeModel().parse(this.treeData);
+        //  console.log(this.treeModel.all(function () {
+        //     return true;
+        // })[0].model);
+         
     }
 
     getJson() {

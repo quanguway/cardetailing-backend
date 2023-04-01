@@ -15,18 +15,20 @@ routeCarInfo.get('/', async (req: Request, res: Response, next: NextFunction) =>
 	res.json(staffs) 
 })
 
-// routeCarInfo.post('/update', async (req: Request, res: Response, next: NextFunction) => {
-// 	const {item, id} = req.body
+routeCarInfo.post('/update', async (req: Request, res: Response, next: NextFunction) => {
+	const {item} = req.body
 	
-// 	const staffEdited = await carInfoService.update(id, item);
-// 	res.json(staffEdited) 
-// })
+	const staffEdited = await carInfoService.update(item.id, item);
+	res.json(staffEdited) 
+})
 
-// routeCarInfo.post('/create', async (req: Request, res: Response, next: NextFunction) => {
-// 	const {item} = req.body
-// 	const staffEdited = await carInfoService.create(item);
-// 	res.json(staffEdited) 
-// })
+routeCarInfo.post('/create', async (req: Request, res: Response, next: NextFunction) => {
+	const {item} = req.body 
+	console.log(item);
+	
+	const carCreated = await carInfoService.create(item);
+	res.json(carCreated) 
+})
 
 routeCarInfo.delete('/', async (req: Request, res: Response, next: NextFunction) => {
 	const {id} = req.body;

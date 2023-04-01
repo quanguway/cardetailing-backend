@@ -5,6 +5,7 @@ export async function up(knex: Knex): Promise<void> {
     table.uuid('id').primary().defaultTo(knex.raw('(UUID())'));
     table.string('title').nullable();
     table.text('description');
+    table.string('code');
     table.timestamp('start_date')
     table.timestamp('end_date')
     table.boolean('is_active').nullable().defaultTo(false)

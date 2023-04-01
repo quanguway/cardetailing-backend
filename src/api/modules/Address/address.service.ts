@@ -1,6 +1,4 @@
-import { log } from "console";
 import knex from "../../../database/knex";
-import { BaseRepository } from "../../repositories/base.repository";
 import { NodeModel, Tree } from "../../utils/Tree.utils";
 import { Address } from "./address";
 import { AddressRepository } from "./address.repository";
@@ -10,24 +8,33 @@ export class AddressService {
   private treeModel: any;
   constructor() {
     this.addressRepository = new AddressRepository(knex, "addresses");
-    this.addressRepository.getAll().then((value) => {
-      this.treeModel = new Tree(value);
-    });
+    knex.raw(`SELECT * FROM car_detailing.addresses order by level asc`).then((value: any) => {
+      this.treeModel = new Tree(value[0]);
+    }) 
   }
 
   getAll() {
+    knex.raw(`SELECT * FROM car_detailing.addresses order by level asc`).then((value: any) => {
+      this.treeModel = new Tree(value[0]);
+    });
     return this.treeModel.getJson();
   }
 
-  getArrayJson() {
+  async getArrayJson() {
+    await knex.raw(`SELECT * FROM car_detailing.addresses order by level asc`).then((value: any) => {
+      this.treeModel = new Tree(value[0]);
+    });
+    
     return this.treeModel.getArrayJson();
   }
 
   async create(item: Address) {
     const addr = await this.addressRepository.create(item);
-    this.addressRepository.getAll().then((value) => {
-      this.treeModel = new Tree(value);
+ 
+    await knex.raw(`SELECT * FROM car_detailing.addresses order by level asc`).then((value: any) => {
+      this.treeModel = new Tree(value[0]);
     });
+
     return addr;
   }
 
@@ -45,6 +52,7 @@ export class AddressService {
     ids?.map((id) => {
       nodes.push(this.treeModel.getNodeById(id));
     });
+    
     return nodes;
   }
 
@@ -60,15 +68,13 @@ export class AddressService {
     return this.treeModel.getPath();
   }
 
-  async saveChange(addressTree: any) {
-    // addressTree = (addressTree as any[]).map(({expanded ,...attr}) => attr)
-    this.treeModel = new Tree(addressTree);
-    let arrayJson = (this.getArrayJson() as any[]).map(
-      ({ expanded, ...attr }) => attr
-    );
+  async saveChange(node: any) {
+      await knex("addresses").where('id', node.id).update(node);
 
-    await knex("addresses").del();
-    const response = await knex("addresses").insert(arrayJson);
-    return response;
+      knex.raw(`SELECT * FROM car_detailing.addresses order by level asc`).then((value: any) => {
+        this.treeModel = new Tree(value[0]);
+      })
+
+    return {msg: "thành công"};
   }
 }

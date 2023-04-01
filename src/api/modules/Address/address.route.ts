@@ -9,6 +9,8 @@ const routeAddress= Router();
 const addressService = new AddressService();
 
 routeAddress.get('/', async(req: Request, res: Response) => { 
+    console.log(await addressService.getAll());
+    
     res.json(await addressService.getAll())
 });
 
@@ -17,8 +19,8 @@ routeAddress.get('/none-root', async(req: Request, res: Response) => {
 });
 routeAddress.get('/test', async(req: Request, res: Response) => res.json(await addressService.getArrayJson()));
 routeAddress.post('/save', async(req: Request, res: Response) => {
-    const {treeData} = req.body;
-    res.json(await addressService.saveChange(treeData))
+    const {node} = req.body;
+    res.json(await addressService.saveChange(node))
 });
 
 routeAddress.get('/id', async(req: Request, res: Response) => {
