@@ -13,13 +13,13 @@ const staffService = new StaffService()
 
 routeStaffs.get('/', async (req: Request, res: Response, next: NextFunction) => {
 	const staffs = await staffService.getAll();
-	res.json(staffs) 
+	res.json(staffs);
 })
 
 routeStaffs.post('/update', async (req: Request, res: Response, next: NextFunction) => {
 	const {item, id} = req.body
 	
-	const staffEdited = await staffService.update(id, item);
+	const staffEdited = await staffService.update(id, item); 
 	res.json(staffEdited) 
 })
 
