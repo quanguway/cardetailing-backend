@@ -54,4 +54,12 @@ routePromotion.get(
   }
 );
 
+routePromotion.get(
+  "/check-promotion-service",
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { booking_details } = req.query;
+    res.json(await promotiomService.checkPromotionService(booking_details));
+  }
+);
+
 export default routePromotion;

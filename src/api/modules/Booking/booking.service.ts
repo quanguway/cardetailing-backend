@@ -90,7 +90,7 @@ export class BookingService {
       id: item.id,
       customer_id: item.customer.id,
       slot_id: item.slot_id,
-      car_detail_id: item.car_detail_id,
+      car_detail_id: item.car_detail.id,
       date_created: new Date(),
       status: "WAITING",
     };
