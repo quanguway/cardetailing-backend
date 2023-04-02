@@ -1,7 +1,4 @@
 import { NextFunction, Request, Response, Router } from "express";
-import knex from "../../../database/knex";
-import { ColumnTable } from "../../repositories/reader.repository";
-import renderControl from "../../utils/render.route";
 import { OrderService } from "./order.service";
 
 // const table_name = 'staffs' 
@@ -23,15 +20,16 @@ routeOrder.post('/update', async (req: Request, res: Response, next: NextFunctio
 })
 
 routeOrder.post('/create', async (req: Request, res: Response, next: NextFunction) => {
-	const {item, orderDetails} = req.body
+	const {item, orderDetails, promotion_line} = req.body
 	
-	const response = await orderService.create(item, orderDetails);
+	
+	const response = await orderService.create(item, orderDetails, promotion_line);
 	res.json(response) 
 })
 
 routeOrder.post('/payment',async (req: Request, res: Response, next: NextFunction) => {
-	const {order, order_details, slot_id} = req.body;
-	const response = await orderService.payment(order, order_details, slot_id);
+	const {order, order_details, slot_id, promotion_line} = req.body;
+	const response = await orderService.payment(order, order_details, slot_id, promotion_line);
 	res.json(response);
 })
 

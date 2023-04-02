@@ -6,18 +6,22 @@ import { CustomerRepository } from "../Custommer/customer.repository";
 import { CustomerService } from "../Custommer/customer.service";
 import { OrderDetailDTO } from "../OrderDetail/orderDetail.dto";
 import { OrderDetailService } from "../OrderDetail/orderDetail.service";
+import { PromotionHistoryRepository } from "../PromotionHistory/promotionHistory.repository";
+import { PromotionLineRepository } from "../PromotionLine/promotionLine.repository";
 import { RoleService } from "../Role/role.service";
 import { SlotService } from "../Slot/slot.service";
 import { Order } from "./order";
 import { OrderDTO } from "./order.dto";
 import { OrderRepository } from "./order.repository";
-
+ 
 export class OrderService {
     private readonly orderRepository;
     private readonly slotService;
-    private readonly orderDetailService;
+    private readonly orderDetailService; 
     private readonly customerService;
     private readonly customerRepository;
+    private readonly promtionLineRepository
+    private readonly promotionHistoryRepository;
 
     constructor() {
         this.orderRepository = new OrderRepository(knex, 'orders');
@@ -25,6 +29,8 @@ export class OrderService {
         this.orderDetailService = new OrderDetailService();
         this.customerService = new CustomerService();
         this.customerRepository = new CustomerRepository(knex, 'customers')
+        this.promtionLineRepository = new PromotionLineRepository(knex, 'promotion_lines');
+        this.promotionHistoryRepository = new PromotionHistoryRepository(knex, 'promotion_histories');
     }
 
     async getAll() {
@@ -34,15 +40,17 @@ export class OrderService {
         const arr = [];
         for(const element of response) {
             const orderDetails = await this.orderDetailService.find({order_id: element.id});
-            console.log(orderDetails);
+            // console.log(orderDetails);
             
             const customer = await this.customerRepository.findFirst({id: element.customer_id});
-            const dto = new OrderDTO(element, orderDetails, customer as Customer);
+            const promotion = await this.promotionHistoryRepository.findFirst({order_id: element.id}) ?? null;
+
+            const dto = new OrderDTO(element, orderDetails, customer as Customer, promotion);
             arr.push({...dto});
         }
         return arr; 
     }
-
+ 
     async findFirst(item: Order) {
         return await this.orderRepository.findFirst(item);
     }
@@ -52,29 +60,39 @@ export class OrderService {
         return await this.orderRepository.update(id, item);
     }
  
-    async create(order: any, order_details: any[]) {
+    async create(order: any, order_details: any[], promotion_line:any) {
         try {
+            console.log('dasd');
+            
             await knex.transaction(async (trx: any) => {
-                 
-                console.log(order);
                 
-                const reponse = await knex('orders').insert(order).transacting(trx); 
+                console.log({...order, promotion_line_id: promotion_line[0].id});
+                const reponse = await knex('orders').insert({...order, promotion_line_id: promotion_line[0].id}).transacting(trx); 
                 const orderDetailCustom = order_details.map(({...element }) => {return {...element,type:'SERVICE' , status: 'SERVICE', order_id: order.id}});
                 const orderDetailIds = await knex('order_details').insert(orderDetailCustom).transacting(trx);
                 
               
-            })
-          } catch (error) { 
-            console.error(error);
-          }
+            }) 
+          } catch (error) {  
+            console.error(error); 
+          } 
     }
 
-    async payment(order: any, order_details: any[], slot_id: string) {
+    async payment(order: any, order_details: any[], slot_id: string, promotion_line:any) {
         try {
+
+            console.log(promotion_line);
+            
+
             await knex.transaction(async (trx: any) => {
                 
-
-                const reponse = await knex('orders').insert(order).transacting(trx); 
+                const reponse = await knex('orders').insert({...order, promotion_line_id: promotion_line.promotionLine.id}).transacting(trx); 
+                await knex('promotion_histories').insert({
+                    order_id: order.id,
+                    amount: promotion_line.soTienGiam,
+                    type: promotion_line.promotionLine.type,
+                    status: promotion_line.promotionLine.type,
+                }).transacting(trx); 
                 // const orderDetailCustom = order_details.map(({...element }) => {return {...element,type:'SERVICE' , status: 'SERVICE', order_id: order.id}});
                 const orderDetailIds = await knex('order_details').insert(order_details).transacting(trx);
                 await this.slotService.update(slot_id, {is_empty: true});

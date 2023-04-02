@@ -110,7 +110,7 @@ export class PromotionService {
                                   and lin.type Like '${type}%'`);
 
     return response;
-  }
+  } 
 
   async checkPromotionOrder(id: string, total: number) {
     if (!total) return;
