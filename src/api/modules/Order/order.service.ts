@@ -36,11 +36,12 @@ export class OrderService {
     async getAll() {
         const response = await this.orderRepository.getAll();
 
+        console.log('-----------------');
  
         const arr = [];
         for(const element of response) {
             const orderDetails = await this.orderDetailService.find({order_id: element.id});
-            // console.log(orderDetails);
+            console.log(orderDetails);
             
             const customer = await this.customerRepository.findFirst({id: element.customer_id});
             const promotion = await this.promotionHistoryRepository.findFirst({order_id: element.id}) ?? null;
@@ -87,6 +88,8 @@ export class OrderService {
             await knex.transaction(async (trx: any) => {
                 
                 const reponse = await knex('orders').insert({...order, promotion_line_id: promotion_line.promotionLine.id}).transacting(trx); 
+                console.log(reponse);
+                
                 await knex('promotion_histories').insert({
                     order_id: order.id,
                     amount: promotion_line.soTienGiam,

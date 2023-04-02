@@ -34,6 +34,7 @@ export class OrderDetailService {
         const array = []
         for (const element of response) {
             const product = await this.productService.findFirst({id: element.product_id})
+            console.log('kkkkkkkkkkkkkkkkkkkkkk')
             console.log(element)
             
             const priceLine = await this.priceLineService.findFirst({id: element.price_line_id})
