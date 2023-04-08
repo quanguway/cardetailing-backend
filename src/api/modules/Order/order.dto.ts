@@ -10,14 +10,18 @@ export class OrderDTO{
     total: number;
     status: string;
     customer: any;
+    book_id: string;
     order_details: OrderDetail[];
-  
-    constructor(data: any, orderDetail: any[] , customer: Customer) {
+    promotion?: any;
+    
+    constructor(data: any, orderDetail: any[] , customer: Customer, promotion?: any) {
       this.id = data.id;
       this.final_total = data.final_total;
       this.total= data.total;
       this.status = data.status;
       this.customer= customer;
+      this.book_id = data.book_id;
       this.order_details= orderDetail;
+      this.promotion = promotion;
     }
   }

@@ -109,7 +109,7 @@ export class PromotionService {
                                   and lin.type Like '${type}%'`);
 
     return response;
-  }
+  } 
 
   async checkPromotionService(booking_details: any) {
     const promotion = await this.getPromotionCanUse("CONDITION_PRODUCT");

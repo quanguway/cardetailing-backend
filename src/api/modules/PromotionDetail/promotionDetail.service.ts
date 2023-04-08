@@ -23,7 +23,6 @@ export class PromotionDetailService {
 
     async findByFinalPrice(finalPrice: any) {
         try {
-            
             return await knex('promotion_details')
                 .where('minimum_total', '<' ,finalPrice)
                 .andWhere('minimum_total', '!=', 0)

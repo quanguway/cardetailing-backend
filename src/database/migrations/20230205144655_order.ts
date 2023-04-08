@@ -9,6 +9,9 @@ export async function up(knex: Knex): Promise<void> {
     table.text('description').nullable();
     table.text('note').nullable();
     table.uuid('book_id');
+    table.uuid('promotion_line_id');
+
+
     table.uuid('customer_id').references('id').inTable('customers');
 
     table.timestamp('date_created');
