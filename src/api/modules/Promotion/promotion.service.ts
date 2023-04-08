@@ -98,7 +98,6 @@ export class PromotionService {
   async getPromotionCanUse(type: String) {
     // const date = new Date().toISOString().slice(0, 10);
     // console.log(Date.now().toString());
-    
 
     const response =
       await knex.raw(`SELECT lin.* , pro.status as proStatus FROM promotion_lines as lin join promotions as pro on lin.promotion_id = pro.id
@@ -109,7 +108,7 @@ export class PromotionService {
                                   and lin.type Like '${type}%'`);
 
     return response;
-  } 
+  }
 
   async checkPromotionService(booking_details: any) {
     const promotion = await this.getPromotionCanUse("CONDITION_PRODUCT");
@@ -141,9 +140,9 @@ export class PromotionService {
     const promotion = await this.getPromotionCanUse("CONDITION_PRICE");
     var proCanUse = {
       soTienGiam: 0,
-      promotionLine: {},
+      promotionLine: null,
     };
-    console.log(promotion[0])
+    console.log(promotion[0]);
     promotion[0].map((item: any) => {
       if (item.minimum_total <= total) {
         var soTienGiam = 0;

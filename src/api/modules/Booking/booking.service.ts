@@ -51,14 +51,18 @@ export class BookingService {
   // }
 
   async findFirst(item: Booking) {
+    console.log("****** 1 ******");
     const book = await this.bookingRepository.findFirst(item);
+    console.log("****** 2 ******");
     const customer = await this.customerRepository.findFirst({
       id: book.customer_id,
     });
 
+    console.log("****** 3 ******");
     const bookDetails = await this.bookingDetailService.find({
       booking_id: book.id,
     });
+    console.log("****** 4 ******");
     const carDetail = await this.carDetailservice.find({
       id: book.car_detail_id,
     });
@@ -69,6 +73,10 @@ export class BookingService {
       bookDetails as BookingDetail[],
       carDetail[0]
     );
+
+    console.log("****** 5 ******");
+    console.log(dto);
+    console.log("***************");
 
     return dto;
   }

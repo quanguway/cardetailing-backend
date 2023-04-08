@@ -81,8 +81,8 @@ export class BookingDetailService {
       const bookingDetailDTO = new BookingDetailDTO(
         element,
         product,
-        priceLine,
         unit_exchange,
+        priceLine,
         staff,
         priceFinal,
         product_recived
