@@ -4,13 +4,22 @@ import { Permission } from "../Permission/permission";
 import { Role } from "../Role/role";
 
 export class CarDetailDTO {
-    id: string;
-    number_plate: string;
-    car_info?: CarInfo; 
-  
-    constructor(data: any, carInfo: CarInfo) {
-      this.id = data.id;
-      this.number_plate = data.number_plate;
-      this.car_info = carInfo;
-    }
-  } 
+  id: string;
+  number_plate: string;
+  engine?: string;
+  chassis?: string;
+  color?: string;
+  number_seat?: number;
+  car_info?: CarInfo;
+  customer_id?: string;
+
+  constructor(data: any, carInfo: CarInfo) {
+    this.id = data.id;
+    this.number_plate = data.number_plate;
+    this.car_info = carInfo;
+    this.engine = data.engine;
+    this.chassis = data.chassis;
+    this.color = data.color;
+    this.number_seat = data.number_seat;
+  }
+}
