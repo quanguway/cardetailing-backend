@@ -1,13 +1,14 @@
 import { Permission } from "../Permission/permission";
+import { Role } from "../Role/role";
 
 export class RegisterAuthDTO{
-  id: string;
-	user_name: string;
-	access_type: string[];
+  id?: string;
+	user_name?: string;
+  role?: string;
   
-    constructor(data: any, permission: Permission[]) {
+    constructor(data: any, role?: Role) {
       this.id = data.id;
       this.user_name = data.full_name;
-      this.access_type = permission.map((value) => value.title)
+      this.role = role?.title;
     }
   }

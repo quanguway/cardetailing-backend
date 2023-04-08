@@ -6,6 +6,7 @@ import { StaffRepository } from '../Staff/staff.repository';
 import { StaffService } from '../Staff/staff.service';
 import { PermissionService } from '../Permission/permission.service';
 import { RegisterAuthDTO } from './auth.dto';
+import { RoleService } from '../Role/role.service';
 
 const routeAuth = express.Router();
 
@@ -28,25 +29,28 @@ routeAuth.post('/register', async (req: Request, res: Response, next: NextFuncti
 		return res.json({err: 1, message: 'Số điện thoại này dã được đăng kí'})
 	}
 	
-}); 
+});  
 
 routeAuth.post('/login', async (req: Request, res: Response, next: NextFunction) => {
-	// const {phone, password} = req.body
-	// const account = await customerService.findFirst({phone: phone}) ?? await staffService.findFirst({phone: phone})
-	// if (account && password) {
-	// 	if( await bcrypt.compare(password, account.password ?? '')) {
-	// 		const response = account;
+	const {phone, password} = req.body
+	console.log(phone);
+	
+	const account = await staffService.findFirst({phone: phone})
+	if (account && password) {
+		if( await bcrypt.compare(password, account.password ?? '')) {
+			const response = account;
 			
-	// 		const authDTO = new RegisterAuthDTO(response ,await permissionService.getPermissionOfRole(response.role_id));
+			const role = await new RoleService().find({id: account?.role_id as string});
+			const authDTO = new RegisterAuthDTO(response ,role[0]);
 			
-	// 		return res.json(authDTO);
-	// 	} else {
-	// 	return res.json({err: 1, message: 'nhập sai mật khẩu'})
+			return res.json(authDTO);
+		} else {
+		return res.json({err: 1, message: 'nhập sai mật khẩu'})
 
-	// 	}
-	// } else {
-	// 	return res.json({err: 1, message: 'Số điện thoại này chưa đăng kí tài khoản'})
-	// }
+		}
+	} else {
+		return res.json({err: 1, message: 'Số điện thoại này chưa đăng kí tài khoản'})
+	}
    
 }); 
 
