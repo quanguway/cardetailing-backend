@@ -13,8 +13,9 @@ export class CustomerDTO {
     role: Role;
     address_path_title: string;
     address_paths: string[];
+    cars: any[];
   
-    constructor(data: any, role: Role, address: string[], addressPathTitle:string) {
+    constructor(data: any, role: Role, address: string[], addressPathTitle:string, cars?: any[]) {
       this.id = data.id;
       this.full_name = data.full_name;
       this.phone = data.phone;
@@ -24,6 +25,7 @@ export class CustomerDTO {
       this.avatar = data.avatar;
       this.role = role;
       this.address_paths = address;
-      this. address_path_title = addressPathTitle
+      this. address_path_title = addressPathTitle;
+      this.cars = cars ?? [];
     }
   }

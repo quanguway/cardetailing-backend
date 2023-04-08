@@ -1,5 +1,6 @@
 import knex from "../../../database/knex";
 import { AddressService } from "../Address/address.service";
+import { CarDetailService } from "../CarDetail/carDetail.service";
 import { RoleService } from "../Role/role.service";
 import { Customer } from "./customer";
 import { CustomerDTO } from "./customer.dto";
@@ -9,11 +10,14 @@ export class CustomerService {
   private readonly customerRepository;
   private readonly addressService;
   private readonly roleService;
+  private readonly carDetailService;
 
   constructor() {
     this.customerRepository = new CustomerRepository(knex, "customers");
     this.addressService = new AddressService();
     this.roleService = new RoleService();
+    this.carDetailService = new CarDetailService();
+
   }
 
   async getAll() {
@@ -36,11 +40,13 @@ export class CustomerService {
         );
         const role = await this.roleService.findById(element.role_id);
 
+        const carDetails = await this.carDetailService.find({customer_id: element.id})
         const dto = new CustomerDTO(
           element,
           role,
           addressPathsCustom.split("."),
-          addressPathTitlesCustom
+          addressPathTitlesCustom,
+          carDetails
         );
         staffs.push({ ...dto });
       } catch (error) {
@@ -69,11 +75,15 @@ export class CustomerService {
       );
       const role = await this.roleService.findById(customer.role_id);
 
+      const carDetails = await this.carDetailService.find({customer_id: customer.id as string})
+
+
       const dto = new CustomerDTO(
         customer,
         role,
         addressPathsCustom.split("."),
-        addressPathTitlesCustom
+        addressPathTitlesCustom,
+        carDetails
       );
       return dto;
     } catch (error) {
@@ -103,7 +113,6 @@ export class CustomerService {
     delete item.address;
     item.role_id = "c7f0ac26-ae1d-11ed-afa1-0242ac120002";
     item.address_id = address?.id ?? addressId;
-    console.log(item);
     return await this.customerRepository.create(item);
   }
 
