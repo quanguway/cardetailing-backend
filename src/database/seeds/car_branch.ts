@@ -4,7 +4,7 @@ import { carData } from "../data/carInfo";
 
 export async function seed(knex: Knex): Promise<void> {
     // Deletes ALL existing entries
-    await knex("car_info").del();
+    await knex("car_branch").del();
 
     // Inserts seed entries
     // const car_info: any[] = [];
@@ -17,5 +17,5 @@ export async function seed(knex: Knex): Promise<void> {
     // }
 
 
-    await knex("car_info").insert(carData);
+    await knex("car_branch").insert(carData);
 }
