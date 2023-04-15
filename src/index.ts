@@ -26,6 +26,7 @@ import routeCarInfo from './api/modules/CarInfo/carInfo.route';
 import routeCustomer from './api/modules/Custommer/customer.route';
 import routeCarDetail from './api/modules/CarDetail/carDetail.route';
 import routePromotionDetail from './api/modules/PromotionDetail/promotionDetail.route';
+import routeCarBranch from './api/modules/CarBranch/carBranch.route';
 
 
 // import expressLayouts from 'express-ejs-layouts';
@@ -65,6 +66,8 @@ const app = express();
   app.use('/car-info', routeCarInfo)
   app.use('/car-detail', routeCarDetail)
   app.use('/promotion-detail', routePromotionDetail)
+  app.use('/promotion-detail', routePromotionDetail)
+  app.use('/car-branch', routeCarBranch)
 
   renderControl('staffs')
 
