@@ -46,6 +46,10 @@ export class BookingDetailService {
     return await this.BookingDetailRepository.createMany(items);
   }
 
+  async create(items: any) {
+    return await this.BookingDetailRepository.create(items);
+  }
+
   async find(item: BookingDetail) {
     const response = await this.BookingDetailRepository.find(item);
     const array = [];

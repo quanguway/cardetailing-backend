@@ -9,7 +9,6 @@ const routeAddress= Router();
 const addressService = new AddressService();
 
 routeAddress.get('/', async(req: Request, res: Response) => { 
-    console.log(await addressService.getAll());
     
     res.json(await addressService.getAll())
 });
