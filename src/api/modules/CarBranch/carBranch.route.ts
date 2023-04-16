@@ -28,8 +28,19 @@ const routeCarBranch = Router();
 
 routeCarBranch.get('/', async (req: Request, res: Response, next: NextFunction) => {
 
-	const carBranch = await knex('car_branch').select();
-	res.json(carBranch) 
+	const response = [];
+
+	const carBranchs = await knex('car_branch').select();
+
+	for(const element of carBranchs) {
+		const carinfo = await knex('car_info').where('car_branch_id', element.id).select();
+		response.push({
+			...element,
+			"car_info": carinfo.map((item:any) => ({...item, title: item.model})),
+		})
+	}
+	
+	res.json(response) 
 })
 
 // routeCarBranch.delete('/', async (req: Request, res: Response, next: NextFunction) => {
