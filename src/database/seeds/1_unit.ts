@@ -23,6 +23,7 @@ export async function seed(knex: Knex): Promise<void> {
       //     staff_created: faker.date.past(),
       // },
       {
+        id:"276ac4a3-d5d6-11ed-a956-0242ac150002",
         title: "Lượt",
         unit_code: "LUOT",
         description: "Không có mô tả",

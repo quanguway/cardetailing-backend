@@ -3,7 +3,7 @@ import { Product } from "../Product/product";
 import { PromotionDetail } from "../PromotionDetail/promotionDetail";
 import { Role } from "../Role/role";
 
-export class PromotionLineDTO {
+export class PromotionLineProductDTO {
   id?: string;
   promotion_code?: string;
   type?: string;
@@ -25,21 +25,15 @@ export class PromotionLineDTO {
   title?: string;
   description?: string;
   note?: string;
-
   product_buy?: any;
   product_received?: any;
-
+  
   date_created?: Date;
   date_updated?: Date;
   staff_created?: Date;
   staff_updated?: Date;
 
-  constructor(
-    data: any,
-    promotionDetail: PromotionDetail,
-    productBuy: any,
-    productReceived: any
-  ) {
+  constructor(data: any, productBuy: any, productReceived: any ) {
     this.id = data.id;
     this.promotion_code = data.promotion_code;
     this.type = data.type;
@@ -47,9 +41,10 @@ export class PromotionLineDTO {
     this.end_date = data.end_date;
     this.status = data.status;
 
-    this.maximum_reduction_amount = data.maximum_reduction_amount;
     this.product_received_id = data.product_received_id;
     this.product_buy_id = data.product_buy_id;
+
+    this.maximum_reduction_amount = data.maximum_reduction_amount;
     this.quantity_product_buy = data.quantity_product_buy;
     this.quantity_product_received = data.quantity_product_received;
     this.minimum_total = data.minimum_total;
@@ -64,10 +59,5 @@ export class PromotionLineDTO {
 
     this.product_buy = productBuy;
     this.product_received = productReceived;
-
-    this.date_created = data.date_created;
-    this.date_updated = data.date_updated;
-    this.staff_created = data.staff_created;
-    this.staff_updated = data.staff_updated;
   }
 }
