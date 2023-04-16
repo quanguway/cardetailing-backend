@@ -10,10 +10,10 @@ export class CarDetailDTO {
   chassis?: string;
   color?: string;
   number_seat?: number;
-  car_info?: CarInfo;
+  car_info?: any;
   customer_id?: string;
 
-  constructor(data: any, carInfo: CarInfo) {
+  constructor(data: any, carInfo: any) {
     this.id = data.id;
     this.number_plate = data.number_plate;
     this.car_info = carInfo;

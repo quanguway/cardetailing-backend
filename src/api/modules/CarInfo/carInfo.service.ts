@@ -19,7 +19,7 @@ export class CarInfoService {
 
         for (const element of response) {
             const branch = await knex.table('car_branch').where('id', element.car_branch_id).first();
-            console.log(branch);
+            console.log(branch); 
             
             dto.push(new CarInfoDTO(element, branch));
         }
@@ -30,7 +30,17 @@ export class CarInfoService {
     }
 
     async findFirst(item: CarInfo) {
-        return await this.carInfoRepository.findFirst(item);
+        const carInfo = await this.carInfoRepository.findFirst(item);
+        const carBranch = await knex('car_branch').where('id', carInfo.car_branch_id).first();
+        console.log({
+            ...carInfo,
+            ...carBranch
+        });
+        
+        return {
+            ...carInfo,
+            ...carBranch
+        }
     }
 
     async update(id:string, item: any) {

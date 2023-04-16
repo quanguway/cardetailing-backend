@@ -50,7 +50,9 @@ export class CustomerService {
         );
         staffs.push({ ...dto });
       } catch (error) {
-        console.log(element);
+        // console.log(element);
+        console.log(error);
+        
       }
     }
 

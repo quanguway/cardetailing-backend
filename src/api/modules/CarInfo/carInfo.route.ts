@@ -23,8 +23,7 @@ routeCarInfo.post('/update', async (req: Request, res: Response, next: NextFunct
 })
 
 routeCarInfo.post('/create', async (req: Request, res: Response, next: NextFunction) => {
-	const {item} = req.body 
-	
+	const {item} = req.body 	
 	const carCreated = await carInfoService.create(item);
 	res.json(carCreated) 
 })

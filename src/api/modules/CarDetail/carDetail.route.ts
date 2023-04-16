@@ -30,11 +30,11 @@ routeCarDetail.get('/customer', async (req: Request, res: Response, next: NextFu
 // 	res.json(staffEdited) 
 // })
 
-// routeCarDetail.post('/create', async (req: Request, res: Response, next: NextFunction) => {
-// 	const {item} = req.body
-// 	const staffEdited = await carDetailService.create(item);
-// 	res.json(staffEdited) 
-// })
+routeCarDetail.post('/create', async (req: Request, res: Response, next: NextFunction) => {
+	const {item} = req.body
+	const staffEdited = await carDetailService.create(item);
+	res.json(staffEdited) 
+})
 
 routeCarDetail.delete('/', async (req: Request, res: Response, next: NextFunction) => {
 	const {id} = req.body;
