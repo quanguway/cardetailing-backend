@@ -40,7 +40,7 @@ export class PriceLineService {
         for (const element of response) {
             const product = await this.productRepository.findFirst({id: element.product_id})
             
-            const unit = await this.unitRepository.findFirst({id: element.unit_id as string})
+            const unit = await this.unitRepository.findFirst({id: '276ac4a3-d5d6-11ed-a956-0242ac150002' as string})
             const pricLine = new PriceLineDTO(element, product, unit)
             array.push({...pricLine})
         }  
