@@ -1,6 +1,7 @@
 export const productData = [
   {
     id: "0718f838-c969-4ca8-99ec-0da1a82e9018",
+    product_code: "DV0001",
     Type: "SERVICE",
     Title: "Rửa xe",
     description: `Bước 1: Dùng vòi nước sạch lọc từ máy lọc nước xịt toàn bộ xe và rà tay để loại bỏ cát bụi bám trên bề mặt sơn xe để giảm thiểu trầy xước khi lau chùi. 
@@ -23,6 +24,7 @@ Bước 7: Dùng dung dịch làm bóng vỏ Carlack quét bóng vỏ`,
   },
   {
     id: "a48b81f6-1ec9-4fd6-b773-a3d488f39dbb",
+    product_code: "DV0002",
     Type: "SERVICE",
     Title: "Đánh bóng hiệu chỉnh sơn",
     description: `1. Để tránh làm trầy xước các chi tiết nhạy cảm như cao su, nhựa (vynil), đèn xe, logo xe, cảm biến
@@ -47,6 +49,7 @@ Bọc và dán che toàn bộ bánh xe`,
   },
   {
     id: "ee14a48c-2c94-4dd2-a229-19ac450ca408",
+    product_code: "DV0003",
     Type: "SERVICE",
     Title: "Vệ sinh khoang động cơ",
     description: ``,
@@ -59,6 +62,7 @@ Bọc và dán che toàn bộ bánh xe`,
   },
   {
     id: "41daa64e-89cc-4a34-80c9-ac09ca516970",
+    product_code: "DV0004",
     Type: "SERVICE",
     Title: "Vệ sinh nội thất",
     description: ``,
@@ -71,6 +75,7 @@ Bọc và dán che toàn bộ bánh xe`,
   },
   {
     id: "43507cd5-df59-4ac8-87d4-2010a5ff9174",
+    product_code: "DV0005",
     Type: "SERVICE",
     Title: "Vệ sinh vành mâm",
     description: ``,
@@ -83,6 +88,7 @@ Bọc và dán che toàn bộ bánh xe`,
   },
   {
     id: "98336328-f528-44d3-bd11-bc3f251768c5",
+    product_code: "DV0006",
     Type: "SERVICE",
     Title: "Phủ Ceramic",
     description: ``,
@@ -95,6 +101,7 @@ Bọc và dán che toàn bộ bánh xe`,
   },
   {
     id: "ca2f1ba8-4c62-4018-bc9f-0c0cf760b2ef",
+    product_code: "DV0007",
     Type: "SERVICE",
     Title: "Tẩy nhựa đường",
     description: `Bước 1: Vệ sinh kính ô tô nhằm loại bỏ bụi bẩn bám trên bề mặt. Sử dụng dòng nước nhẹ để tránh việc tác động mạnh đến kính. Không quá cần lau khô kính.
@@ -111,6 +118,7 @@ Việc tẩy bụi sơn hoàn toàn có thể sẽ xử lý triệt để. Nếu
   },
   {
     id: "63f9d0c9-1d96-4fb9-b20e-35b629ec35b7",
+    product_code: "DV0008",
     Type: "SERVICE",
     Title: "Tẩy bụi sơn trên bề mặt ô tô",
     description: `Bước 1: Vệ sinh kính ô tô nhằm loại bỏ bụi bẩn bám trên bề mặt. Sử dụng dòng nước nhẹ để tránh việc tác động mạnh đến kính. Không quá cần lau khô kính.
@@ -127,6 +135,7 @@ Việc tẩy bụi sơn hoàn toàn có thể sẽ xử lý triệt để. Nếu
   },
   {
     id: "8a2b05fe-cc60-40ed-b9fa-9150853c60c9",
+    product_code: "DV0009",
     Type: "SERVICE",
     Title: "Tẩy ố đèn pha",
     description: ``,
@@ -139,6 +148,7 @@ Việc tẩy bụi sơn hoàn toàn có thể sẽ xử lý triệt để. Nếu
   },
   {
     id: "e0603dc5-de61-4688-b748-800c06dceba9",
+    product_code: "DV0010",
     Type: "SERVICE",
     Title: "Tẩy ố kính",
     description: ``,
@@ -151,6 +161,7 @@ Việc tẩy bụi sơn hoàn toàn có thể sẽ xử lý triệt để. Nếu
   },
   {
     id: "7fc216e8-f17c-48a7-bc2f-62b01b3855cd",
+    product_code: "DV0011",
     Type: "SERVICE",
     Title: "Vệ sinh lốc máy",
     description: `Bước 1: Bước chuẩn bị
@@ -176,6 +187,7 @@ Sau khi đã gột sạch tất cả các vết bẩn, đây là lúc cho phép 
   },
   {
     id: "fe19037c-6c18-4bcc-9c8b-171583c64676",
+    product_code: "DV0012",
     Type: "SERVICE",
     Title: "Giặt lót sàn xe ",
     description: ``,
@@ -188,6 +200,7 @@ Sau khi đã gột sạch tất cả các vết bẩn, đây là lúc cho phép 
   },
   {
     id: "445e1add-5ef1-4f17-b9ff-de2a0a8ea722",
+    product_code: "DV0013",
     Type: "SERVICE",
     Title: "Thay nước làm mát động cơ ô tô",
     description: ``,
@@ -200,6 +213,7 @@ Sau khi đã gột sạch tất cả các vết bẩn, đây là lúc cho phép 
   },
   {
     id: "28b1ac23-b120-41f5-92f3-de69af49ee41",
+    product_code: "DV0014",
     Type: "SERVICE",
     Title: "Hút bụi",
     description: `Lấy các miếng lót chân ra ngoài, hút bụi và hút bụi trong sàn xe. Luôn nhớ hút bụi ít nhất 2 lần theo hai chiều dọc và ngang`,
@@ -212,6 +226,7 @@ Sau khi đã gột sạch tất cả các vết bẩn, đây là lúc cho phép 
   },
   {
     id: "2dbb5b14-1afd-4fcd-ba83-652ecb35134e",
+    product_code: "DV0015",
     Type: "SERVICE",
     Title: "Khử mùi - diệt khuẩn",
     description: `Khi việc vệ sinh đã được thực hiện hoàn hảo, việc khử mùi sẽ vô cùng đơn giản và hiệu quả. Cái gốc của việc khử mùi là loại bỏ mùi khó chịu và thay vào đó là mùi hương mà gia chủ thích. Khử mùi không phải là dùng một loại mùi khác mạnh hơn, lấn áp đi mùi cũ. Làm như vậy, lâu ngày sẽ tạo nên một thứ mùi thật sự khủng khiếp. Chất khử mùi sẽ tạo lớp bao bọc các phân tử mùi khó chịu làm trong sạch không khí. Chúng ta nên xịt khử mùi (loại có hương) trực tiếp vào họng gió máy lạnh và xịt và phía dưới ghế dễ dàng lan tỏa khắp xe.`,

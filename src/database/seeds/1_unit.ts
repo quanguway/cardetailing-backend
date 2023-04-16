@@ -22,6 +22,7 @@ export async function seed(knex: Knex): Promise<void> {
       //     staff_updated: faker.date.past(),
       //     staff_created: faker.date.past(),
       // },
+
       { 
         id: '276ac4a3-d5d6-11ed-a956-0242ac150002',
         title: "Lượt",
