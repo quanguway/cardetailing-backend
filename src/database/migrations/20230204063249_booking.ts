@@ -8,6 +8,7 @@ export async function up(knex: Knex): Promise<void> {
     table.uuid('customer_id').references('id').inTable('customers').onUpdate('CASCADE').onDelete('CASCADE');
     table.uuid('slot_id');
     table.double('total');
+    table.uuid('employee_id');
     table.string('car_detail_id');
     table.timestamp('date_created');
     table.timestamp('date_updated');

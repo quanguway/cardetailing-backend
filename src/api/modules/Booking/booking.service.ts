@@ -105,7 +105,7 @@ export class BookingService {
 
     this.slotService.update(item.slot_id, {
       is_empty: false,
-      booking_id: item.id,
+      booking_id: item.id, 
     });
 
     const bookingCreated = await this.bookingRepository.create(booking);
@@ -126,6 +126,9 @@ export class BookingService {
       is_empty: false,
       booking_id: item.id,
     });
+
+    console.log(booking);
+    
 
     const bookingCreated = await this.bookingRepository.create(booking);
     const bookingDetails = await this.bookingDetailService.createMany(

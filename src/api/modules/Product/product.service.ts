@@ -58,7 +58,6 @@ export class ProductService {
             .andWhere('end_date', '>=',  dayjs().format('YYYY-MM-DD'))
             
         
-
         const priceLines:any =[];
 
         for(const element of priceHeaders) {
