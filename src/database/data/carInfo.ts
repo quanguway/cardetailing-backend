@@ -1342,5 +1342,6 @@ export const carData = [
     code: "VINFAST",
     branch: "VinFast",
     type: "Hạng xe lớn (Large)",
+
   },
 ];

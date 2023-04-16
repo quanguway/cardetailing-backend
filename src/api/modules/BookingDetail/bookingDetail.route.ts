@@ -22,7 +22,17 @@ routeBookingDetail.get('/booking_id', async (req: Request, res: Response, next: 
 
 routeBookingDetail.post('/update', async (req: Request, res: Response, next: NextFunction) => {
 	const {id, item} = req.body;
+	console.log({id, item});
+	
 	const response = await bookingDetailService.update(id, item);
+	res.json(response);
+})
+
+routeBookingDetail.post('/create', async (req: Request, res: Response, next: NextFunction) => {
+	const {item} = req.body;
+	console.log({item});
+	
+	const response = await bookingDetailService.create(item);
 	res.json(response);
 })
 

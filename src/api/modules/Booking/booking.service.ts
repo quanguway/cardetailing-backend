@@ -82,7 +82,7 @@ export class BookingService {
   }
 
   async update(id: string, item: Booking) {
-    return await this, this.bookingRepository.update(id, item);
+    return await this.bookingRepository.update(id, item);
   }
 
   async create(item: any) {

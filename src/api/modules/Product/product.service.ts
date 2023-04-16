@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import knex from "../../../database/knex";
 import { PriceLineService } from "../PriceLine/priceLine.service";
 import { ProductCategoryService } from "../ProductCategory/productCategory.service";
@@ -51,10 +52,21 @@ export class ProductService {
 
     async getAll() {
 
-        const priceLines = await knex('price_lines')
-            .where(new Date() , '>', 'start_date')
-            .andWhere(new Date(), '<', 'end_date')
-            .andWhere('is_active', true);
+        
+        const priceHeaders = await knex('price_headers')
+            .where('start_date', '<=', dayjs().format('YYYY-MM-DD') )
+            .andWhere('end_date', '>=',  dayjs().format('YYYY-MM-DD'))
+            
+        
+
+        const priceLines:any =[];
+
+        for(const element of priceHeaders) {
+            const priceLineActive = await knex('price_lines')
+                .where('price_header_id', element.id)
+                .andWhere('is_active', true);
+            priceLines.push(...priceLineActive);
+        }
 
         const products: any = []
 
